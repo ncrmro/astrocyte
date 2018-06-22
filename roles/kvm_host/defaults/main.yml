@@ -1,0 +1,3 @@
+---
+data_location: "/data"
+vm_location: "{{data_location}}/VMs"

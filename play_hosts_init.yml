@@ -1,9 +1,17 @@
 ---
 
-- name: Setup KVM hosts.
+- name: Base hosts roles.
   hosts: kvm-hosts
   become_user: root
   remote_user: ncrmro
   become: true
   roles:
     - common
+
+- name: Setup KVM hosts.
+  hosts: kvm-hosts
+  become_user: root
+  remote_user: ncrmro
+  become: true
+  roles:
+    - kvm_host
