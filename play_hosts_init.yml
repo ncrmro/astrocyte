@@ -17,6 +17,7 @@
     - vars/kvm.yml
     - vars/env.yml
     - vars/vault.yml
+    - vars/users.yml
   roles:
     - kvm_host
-    - kvm_guests
+    #- kvm_guests

@@ -1,0 +1,18 @@
+groups:
+  - user
+  - provisioner
+  - admin
+  - sudo
+  - libvirt
+  - libvirt-qemu
+
+provisioners:
+  - ansible
+  - vagrant
+  - aws
+
+users:
+  - name: Nicholas Romero
+    username: ncrmro
+    email_perfered: ncrmro@gmail.com
+    groups: ["sudo", "libvirt", "libvirt-qemu"]
