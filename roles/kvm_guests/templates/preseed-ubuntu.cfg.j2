@@ -1,0 +1,186 @@
+### Localization
+# Preseeding only locale sets language, country and locale.
+d-i debian-installer/locale string en_US
+
+# Keyboard selection.
+# Disable automatic (interactive) keymap detection.
+d-i console-setup/ask_detect boolean false
+d-i keyboard-configuration/layoutcode string us
+
+### Network configuration
+# netcfg will choose an interface that has link if possible. This makes it
+# skip displaying a list if there is more than one interface.
+d-i netcfg/choose_interface select auto
+
+# Just in case our DHCP server is busy.
+d-i netcfg/dhcp_timeout string 60
+
+# Any hostname and domain names assigned from dhcp take precedence over
+# values set here. However, setting the values still prevents the questions
+# from being shown, even if values come from dhcp.
+d-i netcfg/get_hostname string {{ item.value.domain }}
+d-i netcfg/get_domain string {{ item.value.domain }}
+d-i netcfg/hostname string {{ item.value.domain }}
+
+# Disable that annoying WEP key dialog.
+d-i netcfg/wireless_wep string
+
+# Added by @analytically: always install the server kernel
+d-i	base-installer/kernel/override-image string linux-server
+
+### Mirror settings
+# Alternatively: by default, the installer uses CC.archive.ubuntu.com where
+# CC is the ISO-3166-2 code for the selected country. You can preseed this
+# so that it does so without asking.
+d-i mirror/http/mirror select gb.archive.ubuntu.com
+d-i mirror/http/proxy string
+
+### Clock and time zone setup
+# Controls whether or not the hardware clock is set to UTC.
+d-i clock-setup/utc boolean true
+
+# You may set this to any valid setting for $TZ; see the contents of
+# /usr/share/zoneinfo/ for valid values.
+d-i time/zone string Etc/UTC
+
+# Controls whether to use NTP to set the clock during the install
+d-i clock-setup/ntp boolean true
+
+# Partitioning
+# ------------
+
+# ### LVM Partitioning
+
+# The entire disk is partitioned using LVM and any prompts that LVM partitioning
+# raises are confirmed automatically.
+
+#d-i preseed/early_command string umount /media
+
+d-i partman-auto/method string lvm
+d-i partman-auto-lvm/guided_size string max
+d-i partman-auto/choose_recipe select atomic
+
+# Old LVM partitions are overwritten, pre-existing raid partitions are removed.
+
+d-i partman-lvm/device_remove_lvm boolean true
+d-i partman-md/device_remove_md boolean true
+
+# The ubuntu installer will prompt for confirmation of the partitioning
+# strategies.
+
+d-i partman-partitioning/confirm_write_new_label boolean true
+d-i partman/choose_partition select finish
+d-i partman/confirm boolean true
+d-i partman-md/confirm boolean true
+d-i partman-lvm/confirm_nooverwrite boolean true
+d-i partman/confirm_nooverwrite boolean true
+
+# If one of the disks that are going to be automatically partitioned
+# contains an old LVM configuration, the user will normally receive a
+# warning. This can be preseeded away...
+d-i partman-lvm/device_remove_lvm boolean true
+# The same applies to pre-existing software RAID array:
+d-i partman-md/device_remove_md boolean true
+# And the same goes for the confirmation to write the lvm partitions.
+d-i partman-lvm/confirm boolean true
+
+### Base system installation
+### Account setup
+
+# To create a normal user account.
+d-i passwd/user-fullname string {{admin_fullname }}
+d-i passwd/username string {{ admin_username }}
+d-i passwd/user-password password {{ admin_password }}
+d-i passwd/user-password-again password {{ admin_password }}
+# d-i passwd/user-password-crypted password HASHHERE
+
+# The installer will warn about weak passwords. If you are sure you know
+# what you're doing and want to override it, uncomment this.
+d-i user-setup/allow-password-weak boolean true
+
+# Set to true if you want to encrypt the first user's home directory.
+d-i user-setup/encrypt-home boolean false
+
+### Apt setup
+# You can choose to install restricted and universe software, or to install
+# software from the backports repository.
+#d-i apt-setup/restricted boolean true
+#d-i apt-setup/universe boolean true
+#d-i apt-setup/backports boolean true
+# Uncomment this if you don't want to use a network mirror.
+#d-i apt-setup/use_mirror boolean false
+# Select which update services to use; define the mirrors to be used.
+# Values shown below are the normal defaults.
+#d-i apt-setup/services-select multiselect security
+#d-i apt-setup/security_host string security.ubuntu.com
+#d-i apt-setup/security_path string /ubuntu
+
+# Additional repositories, local[0-9] available
+#d-i apt-setup/local0/repository string \
+#       http://local.server/ubuntu squeeze main
+#d-i apt-setup/local0/comment string local server
+# Enable deb-src lines
+#d-i apt-setup/local0/source boolean true
+# URL to the public key of the local repository; you must provide a key or
+# apt will complain about the unauthenticated repository and so the
+# sources.list line will be left commented out
+#d-i apt-setup/local0/key string http://local.server/key
+
+### Package selection
+#tasksel	tasksel/force-tasks	string server
+tasksel tasksel/first multiselect none
+# Individual additional packages to install
+# ACPI packages are needed for `virsh shutdown <domain>` to work.
+#d-i pkgsel/include string openssh-server ca-certificates acpid acpi-support-base
+d-i pkgsel/include string openssh-server acpid qemu-guest-agent
+# Whether to upgrade packages after debootstrap.
+# Allowed values: none, safe-upgrade, full-upgrade
+#d-i pkgsel/upgrade select full-upgrade
+
+# Language pack selection
+d-i pkgsel/language-packs multiselect en
+
+# No language support packages
+d-i	pkgsel/install-language-support	boolean false
+
+# Policy for applying updates. May be "none" (no automatic updates),
+# "unattended-upgrades" (install security updates automatically), or
+# "landscape" (manage system with Landscape).
+d-i pkgsel/update-policy select unattended-upgrades
+
+# Verbose output and no boot splash screen
+d-i	debian-installer/quiet	boolean false
+d-i	debian-installer/splash	boolean false
+
+### Boot loader installation
+# This is fairly safe to set, it makes grub install automatically to the MBR
+# if no other operating system is detected on the machine.
+d-i grub-installer/only_debian boolean true
+
+# This one makes grub-installer install to the MBR if it also finds some other
+# OS, which is less safe as it might not be able to boot that other OS.
+d-i grub-installer/with_other_os boolean true
+
+# Wait for two seconds in grub
+d-i	grub-installer/timeout string 0
+
+# Use the following option to add additional boot parameters for the
+# installed system (if supported by the bootloader installer).
+# Note: options passed to the installer will be added automatically.
+d-i debian-installer/add-kernel-opts string vga=normal nomodeset audit=0 intel_idle.max_cstate=0 processor.max_cstate=1 cgroup_enable=memory swapaccount=1
+
+### Finishing up the installation
+# Avoid that last message about the install being complete.
+d-i finish-install/reboot_in_progress note
+
+
+d-i preseed/late_command string \
+in-target mkdir /home/{{ admin_username }}/.ssh; \
+in-target /bin/sh -c "echo '{{ ssh_public_key }}' >> /home/{{ admin_username }}/.ssh/authorized_keys"; \
+in-target /bin/sh -c "echo '{{ admin_username }} ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers"; \
+in-target chown -R {{ admin_username }}:{{ admin_username }} /home/{{ admin_username }}/.ssh; \
+in-target chown -R {{ admin_username }}:{{ admin_username }} /home/{{ admin_username }}/.ssh/authorized_keys; \
+in-target chmod 700 /home/{{ admin_username }}/.ssh; \
+in-target chmod 600 /home/{{ admin_username }}/.ssh/authorized_keys
+
+

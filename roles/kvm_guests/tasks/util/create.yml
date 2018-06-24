@@ -1,0 +1,32 @@
+---
+- name: "create disk {{ guest.key }}"
+  command: >
+           qemu-img create
+           -f {{ guest.value.file_type }}
+           "{{ vm_location}}/{{ guest.key }}.{{ guest.value.file_type }}"
+           "{{guest.value.disk_size}}"
+
+- name: "Copy preseed preseed-ubuntu.cfg.j2"
+  template:
+    src: preseed-ubuntu.cfg.j2
+    dest: "{{data_location}}/preseed.cfg"
+    owner: root
+    group: root
+    mode: 0600
+
+- name: "create {{ guest.key }} vm"
+  command: >
+            virt-install
+            --name {{ guest.key }}
+            --network network=default,model=virtio
+            {{guest.value.initrd_inject}}
+            {{guest.value.extra_args}}
+            --location {{ guest.value.iso }}
+            --memory {{ guest.value.memory }}
+            --vcpus={{ guest.value.vcpus }}
+            --cpu={{ guest.value.cpu | default("host") }}
+            --disk {{ vm_location }}/{{ guest.key }}.{{ guest.value.file_type }}
+            --graphics vnc
+            --os-type {{ guest.value.os_type }}
+            --os-variant {{ guest.value.os_variant }}
+            --noreboot

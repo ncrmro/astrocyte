@@ -1,0 +1,59 @@
+---
+- name: List VMs
+  virt: command=list_vms
+  register: vms
+
+- name: get VM disks
+  command: ls "{{ vm_location }}"
+  register: disks
+  changed_when: "disks.rc != 0"
+
+#- name: Register existing guest network interface
+#  shell: virsh domiflist "{{ item.key }}"
+#  when: item.key in vms.list_vms
+#  with_dict: "{{ kvm_guests }}"
+#  register: network_interfaces
+
+#- name: check states
+#  virt_net:
+#    command: list_nets
+#  register: nets
+
+- name: Add base guest hosts
+  add_host:
+    hostname: "{{ item.key }}"
+    groups:
+      - kvm_guests
+      - kvm_base_guests
+    ansible_ssh_host: "{{ item.value.domain }}"
+    ansible_user: "{{admin_username}}"
+    ansible_ssh_private_key_file: "{{ssh_key}}"
+    ansible_python_interpreter: /usr/bin/python3
+    #ansible_ssh_port: "{{ new_port }}"
+  with_dict: "{{ kvm_base_guests }}"
+
+- name: Add guest hosts
+  add_host:
+    hostname: "{{ item.key }}"
+    groups:
+      - kvm_guests
+    ansible_ssh_host: "{{ item.value.domain }}"
+    ansible_user: "{{admin_username}}"
+    ansible_ssh_private_key_file: "{{ssh_key}}"
+    ansible_python_interpreter: /usr/bin/python3
+    #ansible_ssh_port: "{{ new_port }}"
+  with_dict: "{{ kvm_guests }}"
+
+- name: Register existing snapshots
+  shell: virsh snapshot-list --name --domain "{{ item.value.name }}"
+  with_dict: "{{ kvm_base_guests }}"
+  register: base_guest_snapshots
+  ignore_errors: yes
+
+
+# Example setting facts so that they will be persisted in the fact cache
+- set_fact:
+    vms: "{{vms}}"
+    kvm_disks: "{{disks}}"
+#    network_interfaces: "{{network_interfaces}}"
+#    nets: "{{nets}}"

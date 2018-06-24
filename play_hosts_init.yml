@@ -1,17 +1,22 @@
 ---
 
-- name: Base hosts roles.
-  hosts: kvm-hosts
-  become_user: root
-  remote_user: ncrmro
-  become: true
-  roles:
-    - common
+#- name: Base hosts roles.
+#  hosts: kvm-hosts
+#  become_user: root
+#  remote_user: ncrmro
+#  become: true
+#  roles:
+#    - common
 
 - name: Setup KVM hosts.
   hosts: kvm-hosts
   become_user: root
   remote_user: ncrmro
   become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
   roles:
     - kvm_host
+    - kvm_guests

@@ -1,0 +1,3 @@
+- name: "create : {{ guest.key }}"
+  include_tasks: util/create.yml
+  when: item.key not in vms.list_vms
