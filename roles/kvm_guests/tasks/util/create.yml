@@ -1,10 +1,10 @@
 ---
-- name: "create disk {{ guest.key }}"
+- name: "create disk: {{ vm_location}}/{{ guest.name }}.{{ guest.file_type }}"
   command: >
            qemu-img create
-           -f {{ guest.value.file_type }}
-           "{{ vm_location}}/{{ guest.key }}.{{ guest.value.file_type }}"
-           "{{guest.value.disk_size}}"
+           -f {{ guest.file_type }}
+           "{{ vm_location}}/{{ guest.name }}.{{ guest.file_type }}"
+           "{{guest.disk_size}}"
 
 - name: "Copy preseed preseed-ubuntu.cfg.j2"
   template:
@@ -14,19 +14,28 @@
     group: root
     mode: 0600
 
-- name: "create {{ guest.key }} vm"
+- name: "create KVM guest {{ guest.name }}"
   command: >
             virt-install
-            --name {{ guest.key }}
+            --name {{ guest.name }}
             --network network=default,model=virtio
-            {{guest.value.initrd_inject}}
-            {{guest.value.extra_args}}
-            --location {{ guest.value.iso }}
-            --memory {{ guest.value.memory }}
-            --vcpus={{ guest.value.vcpus }}
-            --cpu={{ guest.value.cpu | default("host") }}
-            --disk {{ vm_location }}/{{ guest.key }}.{{ guest.value.file_type }}
+            {{guest.initrd_inject}}
+            {{guest.extra_args}}
+            --location {{ guest.iso }}
+            --memory {{ guest.memory }}
+            --vcpus={{ guest.vcpus }}
+            --cpu={{ guest.cpu | default("host") }}
+            --disk {{ vm_location }}/{{ guest.name }}.{{ guest.file_type }}
             --graphics vnc
-            --os-type {{ guest.value.os_type }}
-            --os-variant {{ guest.value.os_variant }}
+            --os-type {{ guest.os_type }}
+            --os-variant {{ guest.os_variant }}
             --noreboot
+
+- name: Wait 300 seconds for port 22 to become open and contain "OpenSSH"
+  wait_for:
+    port: 22
+    host: "{{ guest.domain }}"
+    search_regex: OpenSSH
+    delay: 10
+  vars:
+    ansible_connection: local

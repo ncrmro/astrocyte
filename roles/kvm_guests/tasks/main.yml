@@ -2,11 +2,13 @@
 
 - import_tasks: gather_facts.yml
 
-- name: Create base guests
+- name: Create base KVM guests
   include_tasks: base_guests.yml
   vars:
     guest: "{{ item }}"
-  with_dict: "{{ kvm_base_guests }}"
+  when: item.name not in vms.list_vms
+  with_items: "{{ kvm_base_guests }}"
+
 
 #- import_tasks: facts_network.yml
 #

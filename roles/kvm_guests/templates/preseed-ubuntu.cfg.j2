@@ -18,9 +18,9 @@ d-i netcfg/dhcp_timeout string 60
 # Any hostname and domain names assigned from dhcp take precedence over
 # values set here. However, setting the values still prevents the questions
 # from being shown, even if values come from dhcp.
-d-i netcfg/get_hostname string {{ item.value.domain }}
-d-i netcfg/get_domain string {{ item.value.domain }}
-d-i netcfg/hostname string {{ item.value.domain }}
+d-i netcfg/get_hostname string {{ item.domain }}
+d-i netcfg/get_domain string {{ item.domain }}
+d-i netcfg/hostname string {{ item.domain }}
 
 # Disable that annoying WEP key dialog.
 d-i netcfg/wireless_wep string

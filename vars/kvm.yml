@@ -4,8 +4,7 @@ vm_location: "{{data_location}}/VMs"
 
 
 kvm_base_guests:
-  ubuntu18_04_server:
-    name: ubuntu18_04_server
+  - name: ubuntu18_04_server
     memory: 1024
     vcpus: 4,maxvcpus=4,sockets=1,cores=4,threads=1
     os_type: linux
@@ -19,8 +18,7 @@ kvm_base_guests:
     extra_args: '--extra-args="console-setup/ask_detect=false file=file:/preseed.cfg priority=critical quiet"'
 
 kvm_guests:
-  bastion:
-    name: bastion
+  - name: bastion
     base_guest: ubuntu18_04_server
     hostname: bastion
     domain: bastion
