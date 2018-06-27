@@ -1,0 +1,14 @@
+---
+
+- name: Base hosts roles.
+  hosts: baremetal
+  become_user: root
+  remote_user: ncrmro
+  become: true
+  vars_files:
+    - vars/users.yml
+    - vars/env.yml
+  roles:
+    - common
+    - users
+#    - baremetal

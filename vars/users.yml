@@ -1,18 +1,21 @@
 groups:
-  - user
-  - provisioner
-  - admin
-  - sudo
-  - libvirt
-  - libvirt-qemu
+  - name: provisioner
 
 provisioners:
-  - ansible
-  - vagrant
-  - aws
+  - name: ansible
+    groups:
+      - wheel
+      - provisioner
+      - libvirt
+      - libvirt-qemu
 
 users:
-  - name: Nicholas Romero
-    username: ncrmro
+  - name: ncrmro
+    uid: 1000
     email_perfered: ncrmro@gmail.com
-    groups: ["sudo", "libvirt", "libvirt-qemu"]
+    update_password: on_create
+    groups:
+      - sudo
+      - libvirt
+      - libvirt-qemu
+    generate_ssh_key: true
