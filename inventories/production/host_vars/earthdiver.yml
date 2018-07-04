@@ -28,10 +28,18 @@ netplan_network:
          search: [.local]
          addresses: [192.168.1.100,192.168.1.254,9.9.9.9]
 
-#{% for bond in netplan_network['bonds'] %}
-#    Statement2 {{ bonds }}
-#{% endfor %}
-#
-#{% for bridge in netplan_network['bridges'] %}
-#    Statement2 {{ bridge }}
-#{% endfor %}
+zfs_pools:
+  ocean:
+    devices:
+      - ata-ST2000DM006-2DM164_Z4Z9Y1WS
+      - ata-ST2000DM006-2DM164_Z4ZAQVXE
+      - ata-ST2000DM006-2DM164_Z4ZAVGNM
+      - ata-TOSHIBA_DT01ACA200_34AL79UGS
+      - ata-WDC_WD20EARX-00PASB0_WD-WMAZA7977573
+#    slog:
+#      -
+
+
+
+
+
