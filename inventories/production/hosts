@@ -15,3 +15,7 @@ leviathian
 
 [nas]
 earthdiver
+
+[kvm-guests]
+k8node0
+k8node1

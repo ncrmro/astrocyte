@@ -1,0 +1,21 @@
+---
+- name: add dnsmasq for host
+  lineinfile:
+    dest: "{{ libvirt_qemu_resolv_conf_head }}"
+    regexp: "#DNS="
+    line: "DNS=192.168.122.1"
+  register: nameserver_result
+
+- name: add dnsmasq for host
+  lineinfile:
+    dest: "{{ libvirt_qemu_resolv_conf_head }}"
+    regexp: "#FallbackDNS="
+    line: "FallbackDNS=192.168.1.254"
+  register: nameserver_result
+
+- name: restart systemd-resolved
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: systemd-resolved
+  when: nameserver_result.changed
