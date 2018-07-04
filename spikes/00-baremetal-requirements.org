@@ -1,0 +1,5 @@
+* Baremetal Requirements
+
+** Network
+Take a look at your infrastrucutre. Can you set your router up. Make sure to have all devices plugged in at assigned static IPs if not already configured.
+We will also set the OS to use a static IP so if your not able to assign static IPS thats fine.

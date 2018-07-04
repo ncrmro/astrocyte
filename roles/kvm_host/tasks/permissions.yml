@@ -7,21 +7,21 @@
     - libvirt-qemu
 
 - name: Adding users to libvirt group
-  user: name="{{ item.username }}"
-        group="{{ item.username }}"
+  user: name="{{ item.name }}"
+        group="{{ item.name }}"
         shell=/bin/bash
         password="{{admin_password}}"
         groups=libvirt
         append=yes
   when: '"libvirt" in item.groups'
-  with_items: "{{users}}"
+  with_items: "{{ users }} + {{ provisioners }}"
 
 - name: Adding users to libvirt-qemu group
-  user: name="{{ item.username }}"
-        group="{{ item.username }}"
+  user: name="{{ item.name }}"
+        group="{{ item.name }}"
         shell=/bin/bash
         password="{{admin_password}}"
         groups=libvirt-qemu
         append=yes
   when: '"libvirt-qemu" in item.groups'
-  with_items: "{{users}}"
+  with_items: "{{ users }} + {{ provisioners }}"

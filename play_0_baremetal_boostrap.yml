@@ -11,4 +11,4 @@
   roles:
     - common
     - users
-#    - baremetal
+    - baremetal

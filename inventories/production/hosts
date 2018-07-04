@@ -1,13 +1,17 @@
 [local]
 ncrmro-desktop ansible_host=127.0.0.1 ansible_python_interpreter=/home/ncrmro/.venv/astrocyte/bin/python
 
+[baremetal]
+leviathian ansible_ssh_host=leviathian.local
+earthdiver ansible_ssh_host=earthdiver.local
+
 [ubuntu]
-levi ansible_ssh_host=leviathian.local
-dive ansible_ssh_host=earthdiver.local
+leviathian
+earthdiver
 bastion ansible_ssh_host=bastion.local
 
 [kvm-hosts]
-levi
+leviathian
 
 [nas]
-dive
+earthdiver

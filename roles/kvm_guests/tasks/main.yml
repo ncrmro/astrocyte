@@ -6,7 +6,7 @@
   include_tasks: base_guests.yml
   vars:
     guest: "{{ item }}"
-  when: item.name not in vms.list_vms
+#  when: item.name not in vms.list_vms
   with_items: "{{ kvm_base_guests }}"
 
 

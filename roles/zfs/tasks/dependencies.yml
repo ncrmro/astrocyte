@@ -1,11 +1,6 @@
 ---
-- name: Creates VM directory
-  file:
-    path: "{{vm_location}}"
-    state: directory
-    owner: libvirt-qemu
-    group: libvirt-qemu
-    recurse: true
+- name: Creates directory
+  file: path="{{vm_location}}" state=directory
 
 - name: Install kvm and tools
   apt: name={{item}} state=present
