@@ -1,0 +1,37 @@
+---
+- name: Check current Networks
+  virt_net:
+    command: list_nets
+  register: nets
+
+- name: Debug Current nets
+  debug:
+    msg: "{{nets}}"
+
+- name: check states
+  virt_net:
+    command: list_nets
+  register: nets
+
+- name: Define networks
+  virt_net:
+    command: define
+    name: "{{ item.name }}"
+    xml: '{{ lookup("template", "config.xml.j2") }}'
+  with_items: "{{libvirt_bridges}}"
+  when: item.name not in nets.list_nets
+
+- name: Create networks
+  virt_net:
+    command: create
+    name: "{{ item.name }}"
+  with_items: "{{libvirt_bridges}}"
+  when: item.name not in nets.list_nets
+
+- name: Autostart networks
+  virt_net:
+    state: active
+    autostart: yes
+    name: "{{ item.name }}"
+  with_items: "{{libvirt_bridges}}"
+  when: item.name not in nets.list_nets

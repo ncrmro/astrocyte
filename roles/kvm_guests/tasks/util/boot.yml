@@ -1,0 +1,5 @@
+---
+- name: "Booting : {{ guest.name }}..."
+  virt:
+    name: "{{ guest.name }}"
+    state: running

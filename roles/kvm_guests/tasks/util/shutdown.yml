@@ -1,0 +1,18 @@
+- name: "Shutdown guest vm: {{ guest.name }}"
+  virt:
+    name: "{{ guest.name }}"
+    state: shutdown
+
+- guest.name: "Wait for guest vm: {{ guest.name }}"
+  action: virt name="{{ guest.name }}" command=status
+  register: result
+  until: result.status.find("shutdown") != -1
+  retries: 30
+  delay: 5
+
+- name: "Wait for guest vm {{ guest.name }} to shutdown"
+  action: virt name="{{ name }}" command=status
+  register: result
+  until: result.status.find("shutdown") != -1
+  retries: 30
+  delay: 5

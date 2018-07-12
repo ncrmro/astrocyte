@@ -1,0 +1,6 @@
+---
+- name: "Shutdown: {{ guest.key }}"
+  include_tasks: shutdown.yml
+
+- include_tasks: boot.yml
+  

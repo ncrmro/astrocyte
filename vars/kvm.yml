@@ -23,8 +23,8 @@ kvm_guests:
     hostname: bastion
     domain: bastion
     network_interface: br0
-  - name: lemons
-    base_guest: ubuntu18_04_server
-    hostname: bastion
-    domain: bastion
-    network_interface: br0
+#  - name: lemnos
+#    base_guest: ubuntu18_04_server
+#    hostname: bastion
+#    domain: bastion
+#    network_interface: br0
