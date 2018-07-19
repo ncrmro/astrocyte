@@ -8,6 +8,11 @@ d-i console-setup/ask_detect boolean false
 d-i keyboard-configuration/layoutcode string us
 
 ### Network configuration
+# Disable network configuration entirely. This is useful for cdrom
+# installations on non-networked devices where the network questions,
+# warning and long timeouts are a nuisance.
+d-i netcfg/enable boolean true
+
 # netcfg will choose an interface that has link if possible. This makes it
 # skip displaying a list if there is more than one interface.
 d-i netcfg/choose_interface select auto
@@ -18,9 +23,13 @@ d-i netcfg/dhcp_timeout string 60
 # Any hostname and domain names assigned from dhcp take precedence over
 # values set here. However, setting the values still prevents the questions
 # from being shown, even if values come from dhcp.
+d-i netcfg/get_hostname string unassigned-hostname
+d-i netcfg/get_domain string unassigned-domain
+
+# If you want to force a hostname, regardless of what either the DHCP
+# server returns or what the reverse DNS entry for the IP is, uncomment
+# and adjust the following line.
 d-i netcfg/hostname string {{ item.hostname }}
-d-i netcfg/get_hostname string {{ item.hostname }}
-d-i netcfg/get_domain string {{ item.domain }}
 
 # Disable that annoying WEP key dialog.
 d-i netcfg/wireless_wep string
@@ -143,6 +152,10 @@ d-i pkgsel/language-packs multiselect en
 # No language support packages
 d-i	pkgsel/install-language-support	boolean false
 
+### Package selection
+# Individual additional packages to install
+d-i pkgsel/include build-essential avahi-daemon fail2ban ufw htop iotop
+
 # Policy for applying updates. May be "none" (no automatic updates),
 # "unattended-upgrades" (install security updates automatically), or
 # "landscape" (manage system with Landscape).
@@ -151,9 +164,6 @@ d-i pkgsel/update-policy select unattended-upgrades
 # Verbose output and no boot splash screen
 d-i	debian-installer/quiet	boolean false
 d-i	debian-installer/splash	boolean false
-
-# Install avahi-daemon to allow .local and .kvm names to resolve
-d-i pkgsel/include avahi-daemon fail2ban ufw htop iotop
 
 ### Boot loader installation
 # This is fairly safe to set, it makes grub install automatically to the MBR
@@ -184,4 +194,5 @@ in-target /bin/sh -c "echo '{{ admin_username }} ALL=(ALL) NOPASSWD: ALL' >> /et
 in-target chown -R {{ admin_username }}:{{ admin_username }} /home/{{ admin_username }}/.ssh; \
 in-target chown -R {{ admin_username }}:{{ admin_username }} /home/{{ admin_username }}/.ssh/authorized_keys; \
 in-target chmod 700 /home/{{ admin_username }}/.ssh; \
-in-target chmod 600 /home/{{ admin_username }}/.ssh/authorized_keys
+in-target chmod 600 /home/{{ admin_username }}/.ssh/authorized_keys; \
+in-target apt install -y openssh-server

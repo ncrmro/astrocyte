@@ -7,7 +7,7 @@ ubuntu18_iso: "{{data_location}}/isos/ubuntu-18.04-live-server-amd64.iso"
 kvm_base_guests_ubuntu18_04_server:
     name: ubuntu18_04_server
     memory: 8192
-    vcpus: 4,maxvcpus=4,sockets=1,cores=4,threads=1
+    vcpus: 4,maxvcpus=4,sockets=1,cores=1,threads=4
     os_type: linux
     os_variant: ubuntu16.04
     disk_size: 80G
