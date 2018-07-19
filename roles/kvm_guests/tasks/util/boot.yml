@@ -1,5 +1,5 @@
 ---
-- name: "Booting : {{ guest.name }}..."
+- name: "Booting guest: {{ name }}..."
   virt:
-    name: "{{ guest.name }}"
+    name: "{{ name }}"
     state: running

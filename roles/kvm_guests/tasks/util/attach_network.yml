@@ -1,0 +1,15 @@
+- name: Detach existing default network
+  shell: >
+    virsh detach-interface
+    --domain "{{ guest.key }}"
+    --type network
+    --persistent
+
+
+- name: Attach attach-device network
+  shell: >
+    virsh attach-interface
+    --domain "{{ guest.key }}"
+    --type bridge
+    --source "{{ guest.value.network_interface }}"
+    --persistent

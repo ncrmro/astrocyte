@@ -58,6 +58,10 @@ ansible-vault edit --vault-password-file $VAULT_PASSFILE vars/vault.yml
 ansible-playbook -i hosts init.yml --vault-password-file ~/.ansible/.vault_pass.txt
 ```
 
+### KVM Guest Networking
+
+dig +short @192.168.122.1 TXT CHAOS version.bind
+
 ### Naming
 leviathian
 earthdiver

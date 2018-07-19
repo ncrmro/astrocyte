@@ -1,0 +1,15 @@
+---
+- name: create vm
+  command: >
+            virt-clone
+            --original {{ guest.base_guest.name }}
+            --name {{ guest.name }}
+            --file {{ vm_location }}/{{ guest.name }}.{{ guest.file_type }}
+
+- name: set vm to autostart
+  command: virsh autostart {{ guest.name }}
+
+- name: Boot guests
+  include_tasks: boot.yml
+  vars:
+      name: "{{guest.name}}"

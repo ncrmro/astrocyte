@@ -152,6 +152,9 @@ d-i pkgsel/update-policy select unattended-upgrades
 d-i	debian-installer/quiet	boolean false
 d-i	debian-installer/splash	boolean false
 
+# Install avahi-daemon to allow .local and .kvm names to resolve
+d-i pkgsel/include avahi-daemon fail2ban ufw htop iotop
+
 ### Boot loader installation
 # This is fairly safe to set, it makes grub install automatically to the MBR
 # if no other operating system is detected on the machine.

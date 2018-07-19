@@ -1,0 +1,36 @@
+- name: "Ensure base_guest: {{ guest.base_guest.name }} is shutdown before cloning guest."
+  import_tasks: util/shutdown.yml
+  vars:
+    name: "{{guest.base_guest.name}}"
+
+- name: "Clone guests {{ guest.name }} from base guests"
+  include_tasks: util/clone.yml
+  when: guest.name not in vms.list_vms
+
+- name: "Boot to_guest: {{guest.name}} for next steps to check what domain it's reachable by"
+  import_tasks: util/boot.yml
+  vars:
+      name: "{{guest.name}}"
+
+- name: Wait for time to start
+  pause:
+    seconds: 15
+
+- name: "Rest of task can be skipped if guest {{ guest.name }} is reachable at new domain."
+  command: ping -c1 "{{ guest.domain }}"
+  ignore_errors: yes
+  register: guest_reachable
+
+- name: "Update cloned guests: {{ guest.name }} hostname"
+  include_tasks: util/changehostname.yml
+
+
+##
+#- name: Boot guests
+#  include_tasks: util/boot.yml
+##
+#- name: Resize disk
+#  include_tasks: util/resize_disk.yml
+#  vars:
+#    #original_size:
+#    expanded_size: 40GB

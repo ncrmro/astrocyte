@@ -33,6 +33,8 @@
 
 - name: "Reboot: {{ guest.name }}"
   include_tasks: reboot.yml
+  vars:
+    name: "{{ guest.name }}"
 
 - name: Wait 300 seconds for port 22 to become open and contain "OpenSSH"
   wait_for:

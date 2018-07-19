@@ -1,0 +1,35 @@
+---
+- set_fact:
+     ANSIBLE_HOST_KEY_CHECKING: False
+
+- name: "Can we reach new guest by old hostname : {{ guest.base_guest.domain }}"
+  command: ping -c1 "{{ guest.base_guest.domain }}"
+  register: ping_result
+  ignore_errors: yes
+
+
+- name: add guest domain and hostname to /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: '127\.0\.1\.1[ \t]+{{ guest.base_guest.domain }}[ \t]+{{ guest.base_guest.hostname }}'
+    line: '127.0.1.1  {{ guest.domain }}    {{ guest.hostname }}'
+    state: present
+  delegate_to: "{{ guest.base_guest.domain }}"
+  when: ping_result is success
+
+- name: "add hostname to /etc/hostname: {{ from_guest.hostname }}"
+  lineinfile:
+    dest: /etc/hostname
+    regexp: '^{{ from_guest.hostname }}'
+    line: '{{ to_guest.hostname }}'
+    state: present
+  delegate_to: "{{ from_guest.domain }}"
+  when: ping_result is success
+
+- import_tasks: reboot.yml
+  vars:
+    name: "{{ guest.name }}"
+  when: ping_result is success
+
+- set_fact:
+     ANSIBLE_HOST_KEY_CHECKING: True
