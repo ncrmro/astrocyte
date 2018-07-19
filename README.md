@@ -1,5 +1,15 @@
 # astrocyte
 
+## Project Scope
+
+* Baremetal
+* KVM Host
+* KVM Guest Provisioning
+
+The first Ansible play is to set up baremetal eg disks and network interfaces.
+
+Thes second plays intializes KVM hosts and guests
+
 ## Setup
 `brew install python pipenv`
 
