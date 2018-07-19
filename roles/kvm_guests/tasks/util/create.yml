@@ -17,18 +17,18 @@
 - name: "create KVM guest {{ guest.name }}"
   command: >
             virt-install
-            --name {{ guest.name }}
-            --network network=default,model=virtio
+            --name={{ guest.name }}
+            --network=bridge=br0,model=virtio
             {{guest.initrd_inject}}
             {{guest.extra_args}}
-            --location {{ guest.iso }}
-            --memory {{ guest.memory }}
+            --location={{ guest.iso }}
+            --ram={{ guest.memory }}
             --vcpus={{ guest.vcpus }}
             --cpu={{ guest.cpu | default("host") }}
-            --disk {{ vm_location }}/{{ guest.name }}.{{ guest.file_type }}
+            --disk={{ vm_location }}/{{ guest.name }}.{{ guest.file_type }}
             --graphics vnc
-            --os-type {{ guest.os_type }}
-            --os-variant {{ guest.os_variant }}
+            --os-type={{ guest.os_type }}
+            --os-variant={{ guest.os_variant }}
             --noreboot
 
 - name: "Reboot: {{ guest.name }}"

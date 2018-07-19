@@ -61,6 +61,9 @@ ansible-playbook -i hosts init.yml --vault-password-file ~/.ansible/.vault_pass.
 ### KVM Guest Networking
 
 dig +short @192.168.122.1 TXT CHAOS version.bind
+systemd-resolve --status
+
+bastion needs to be configured to listen on both bridge and the default .kvm network
 
 ### Naming
 leviathian
