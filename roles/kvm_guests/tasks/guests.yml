@@ -1,34 +1,46 @@
-- name: "Ensure base_guest: {{ guest.base_guest.name }} is shutdown before cloning guest."
+- name: "If guest {{ guest.name }} reach able by base_guest hostname {{ guest.base_guest.domain }}, lets shut it down."
+  command: ping -c1 "{{ guest.base_guest.domain }}"
+  register: ping_result
+  ignore_errors: yes
+
+- name: "Ensure base_guest {{ guest.base_guest.name }} is shutdown before cloning guest { guest.name }}."
   import_tasks: util/shutdown.yml
   vars:
     name: "{{guest.base_guest.name}}"
+  when: ping_result is success
 
 - name: "Clone guests {{ guest.name }} from base guests"
   include_tasks: util/clone.yml
   when: guest.name not in vms.list_vms
 
-- name: "Boot to_guest: {{guest.name}} for next steps to check what domain it's reachable by"
-  import_tasks: util/boot.yml
+- import_tasks: util/boot.yml
   vars:
       name: "{{guest.name}}"
+  when: guest.name not in vms.list_vms
 
-- name: Wait for time to start
-  pause:
-    seconds: 15
+- set_fact:
+     ANSIBLE_HOST_KEY_CHECKING: False
 
-- name: "Rest of task can be skipped if guest {{ guest.name }} is reachable at new domain."
-  command: ping -c1 "{{ guest.domain }}"
-  ignore_errors: yes
-  register: guest_reachable
+- name: "Wait 15 secods for {{ guest.name}} to be reachable at {{ guest.base_guest.domain }}"
+  wait_for:
+    host: "{{ guest.base_guest.domain }}"
+    port: 22
+    search_regex: OpenSSH
+    timeout: 15
+  when: guest.name not in vms.list_vms
 
 - name: "Update cloned guests: {{ guest.name }} hostname"
   include_tasks: util/changehostname.yml
+  when: guest.name not in vms.list_vms
 
+- import_tasks: util/reboot.yml
+  vars:
+    name: "{{ guest.name }}"
+  when: guest.name not in vms.list_vms
 
-##
-#- name: Boot guests
-#  include_tasks: util/boot.yml
-##
+- set_fact:
+     ANSIBLE_HOST_KEY_CHECKING: True
+
 #- name: Resize disk
 #  include_tasks: util/resize_disk.yml
 #  vars:

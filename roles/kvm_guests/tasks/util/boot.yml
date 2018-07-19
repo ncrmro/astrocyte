@@ -3,3 +3,7 @@
   virt:
     name: "{{ name }}"
     state: running
+
+- name: Wait for time to start
+  pause:
+    seconds: 15
