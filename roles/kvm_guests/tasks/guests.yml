@@ -26,7 +26,7 @@
     host: "{{ guest.base_guest.domain }}"
     port: 22
     search_regex: OpenSSH
-    timeout: 15
+    timeout: 30
   when: guest.name not in vms.list_vms
 
 - name: "Update cloned guests: {{ guest.name }} hostname"
@@ -37,6 +37,13 @@
   vars:
     name: "{{ guest.name }}"
   when: guest.name not in vms.list_vms
+
+- name: "Wait 15 secods for {{ guest.name }} to be reachable at {{ guest.domain }}"
+  wait_for:
+    host: "{{ guest.domain }}"
+    port: 22
+    search_regex: OpenSSH
+    timeout: 30
 
 - set_fact:
      ANSIBLE_HOST_KEY_CHECKING: True

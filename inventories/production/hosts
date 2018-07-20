@@ -6,11 +6,6 @@ leviathian ansible_ssh_host=leviathian.local
 earthdiver ansible_ssh_host=earthdiver.local
 heliade ansible_ssh_host=pi.local
 
-[ubuntu]
-leviathian
-earthdiver
-bastion ansible_ssh_host=bastion.local
-
 [kvm-hosts]
 leviathian
 
@@ -18,5 +13,13 @@ leviathian
 earthdiver
 
 [kvm-guests]
-k8node0
-k8node1
+ubuntu18-04-server ansible_ssh_host=ubuntu18-04-server.local ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
+bastion
+dnode0
+gitlab_runners
+lemnos
+
+[ubuntu]
+leviathian
+earthdiver
+bastion ansible_ssh_host=bastion.local

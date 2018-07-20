@@ -5,10 +5,10 @@
 - name: "add guest domain {{ guest.hostname}} and hostname {{ guest.domain }} to /etc/hosts"
   lineinfile:
     dest: /etc/hosts
-    regexp: '127\.0\.1\.1[ \t]+{{ guest.base_guest.domain }}[ \t]+{{ guest.base_guest.hostname }}'
-    line: '127.0.1.1  {{ guest.domain }}    {{ guest.hostname }}'
+    regexp: '127\.0\.1\.1[ \t]+\S+[ \t]+\S+'
+    line: '127.0.1.1       {{ guest.domain }}        {{ guest.hostname }}'
     state: present
-  delegate_to: "{{ guest.base_guest.domain }}"
+  delegate_to: "{{ guest.base_guest.hostname }}"
   connection: local
 
 - name: "add hostname {{ guest.hostname }} to /etc/hostname"
@@ -17,7 +17,7 @@
     regexp: '^{{ guest.base_guest.hostname }}'
     line: '{{ guest.hostname }}'
     state: present
-  delegate_to: "{{ guest.base_guest.domain }}"
+  delegate_to: "{{ guest.base_guest.hostname }}"
 
 - set_fact:
      ANSIBLE_HOST_KEY_CHECKING: True

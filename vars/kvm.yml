@@ -3,6 +3,7 @@ data_location: "/data"
 vm_location: "{{data_location}}/VMs"
 ubuntu18_iso: "{{data_location}}/isos/ubuntu-18.04-live-server-amd64.iso"
 
+search_domans: ".local"
 
 kvm_base_guests_ubuntu18_04_server:
     name: ubuntu18_04_server
@@ -42,5 +43,13 @@ kvm_guests:
     base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
     disk_size: 60G
     file_type: qcow2
-    hostname: gitlab_runners
-    domain: gitlab_runners.local
+    hostname: gitlab-runners
+    domain: gitlab-runners.local
+  - name: lemnos
+    mem: 4096
+    cpus: 4
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    disk_size: 60G
+    file_type: qcow2
+    hostname: lemnos
+    domain: lemnos.local
