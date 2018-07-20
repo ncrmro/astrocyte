@@ -20,3 +20,14 @@
     - vars/users.yml
   roles:
     - kvm_guests
+
+- name: Setup KVM guests.
+  hosts: kvm-hosts:kvm-guests
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
+    - vars/users.yml
+  roles:
+    - security

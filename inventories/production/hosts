@@ -12,8 +12,10 @@ leviathian
 [nas]
 earthdiver
 
-[kvm-guests]
+[kvm-base-guests]
 ubuntu18-04-server ansible_ssh_host=ubuntu18-04-server.local ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
+
+[kvm-guests]
 bastion
 dnode0
 gitlab_runners
