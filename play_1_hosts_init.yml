@@ -21,8 +21,10 @@
   roles:
     - kvm_guests
 
-- name: Setup KVM guests.
+- name: Secure guests and hosts.
   hosts: kvm-hosts:kvm-guests
+  become_user: root
+  remote_user: ncrmro
   become: true
   vars_files:
     - vars/kvm.yml
