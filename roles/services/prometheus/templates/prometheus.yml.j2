@@ -33,3 +33,15 @@ scrape_configs:
   - job_name: 'earthdiver node exporter'
     static_configs:
       - targets: ['earthdiver.local:9100']
+
+  - job_name: 'bastion node exporter'
+    static_configs:
+      - targets: ['bastion.local:9100']
+
+  - job_name: 'dnode0 node exporter'
+    static_configs:
+      - targets: ['dnode0.local:9100']
+
+  - job_name: 'lemnos node exporter'
+    static_configs:
+      - targets: ['lemnos.local:9100']

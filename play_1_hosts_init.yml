@@ -1,28 +1,28 @@
 ---
-#- name: Setup KVM hosts.
-#  hosts: kvm-hosts
-#  become: true
-#  vars_files:
-#    - vars/kvm.yml
-#    - vars/env.yml
-#    - vars/vault.yml
-#    - vars/users.yml
-#  roles:
-#    - kvm_host
-#
-#- name: Setup KVM guests.
-#  hosts: kvm-hosts
-#  become: true
-#  vars_files:
-#    - vars/kvm.yml
-#    - vars/env.yml
-#    - vars/vault.yml
-#    - vars/users.yml
-#  roles:
-#    - kvm_guests
+- name: Setup KVM hosts.
+  hosts: kvm-hosts
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
+    - vars/users.yml
+  roles:
+    - kvm_host
+
+- name: Setup KVM guests.
+  hosts: kvm-hosts
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
+    - vars/users.yml
+  roles:
+    - kvm_guests
 
 - name: Secure guests and hosts.
-  hosts: kvm-hosts:kvm-guests
+  hosts: ubuntu
   become_user: root
   remote_user: ncrmro
   become: true
