@@ -1,2 +1,2 @@
-ansible_python_interpreter: /usr/bin/python3
 become_user: libvirt-qemu
+#ansible_ssh_common_args: '-o ProxyCommand="ssh -W %h:%p bastion_wan"'

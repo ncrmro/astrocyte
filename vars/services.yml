@@ -1,0 +1,37 @@
+docker_postgres_image: postgres:10.3-alpine
+docker_prometheus_image: prom/prometheus:v2.2.1
+
+services_traefik:
+  image: traefik:v1.5.3-alpine
+  volumes:
+     traefik_data:
+     traefik_certs:
+  networks:
+    traefik:
+services_postgres:
+  image: postgres:10.3-alpine
+  volumes:
+    postgres_data:
+    postgres_backups:
+  networks:
+    postgres:
+services_prometheus:
+  image: prom/prometheus:v2.2.1
+  volumes:
+    prometheus_config:
+    prometheus_data:
+  networks:
+    prometheus:
+services_grafana:
+  image: grafana/grafana:5.0.3
+  volumes:
+    grafana_config:
+    grafana_data:
+  networks:
+    grafana:
+services_mongo:
+  image: mongo:3.0-wheezy
+  volumes:
+    mongo_data:
+  networks:
+    mongo:

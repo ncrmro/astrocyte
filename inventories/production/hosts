@@ -7,6 +7,7 @@ earthdiver
 
 [kvm-hosts]
 leviathian
+earthdiver
 
 [nas]
 earthdiver
@@ -20,7 +21,15 @@ dnode0
 gitlab-runners
 lemnos
 
+[docker-hosts]
+dnode0
+gitlab-runners
+lemnos
+
 [ubuntu]
 leviathian
 earthdiver
 bastion
+dnode0
+gitlab-runners
+lemnos

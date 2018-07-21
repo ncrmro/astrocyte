@@ -1,0 +1,37 @@
+---
+- name: Install packages to allow apt to use a repository over HTTPS
+  apt: name={{item}} state=present
+  with_items:
+       - apt-transport-https
+       - ca-certificates
+       - curl
+       - software-properties-common
+
+- name: Add Docker Official GPG key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+  register: add_repository_key
+  #ignore_errors: true
+
+- name: Add docker apt repo
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+    update_cache: yes
+
+- name: Install Docker apt package
+  apt:
+    pkg: docker-ce
+    state: latest
+    update_cache: yes
+
+- name: Need pip to install docker-py
+  apt: name={{item}} state=present
+  with_items:
+       - python3-pip
+
+- name: Install docker-py python package required by ansible.
+  pip:
+    name: docker-py
+    version: 1.10.5
