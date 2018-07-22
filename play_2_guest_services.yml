@@ -22,4 +22,5 @@
     - services/traefik
     - services/prometheus
     - services/postgres
+    - services/mongo
     - services/grafana

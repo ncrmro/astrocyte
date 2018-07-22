@@ -1,0 +1,3 @@
+---
+mongo_admin_username: mongo
+mongo_admin_password: changeme
