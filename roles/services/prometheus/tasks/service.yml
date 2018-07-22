@@ -38,7 +38,7 @@
   ufw:
     rule: allow
     port: 9100
-    src: 172.17.0.8
+    src: 172.17.0.0/16
   when: common_node_exporter_ip is defined
 
 # SRC=172.17.0.8
