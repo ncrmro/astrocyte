@@ -4,7 +4,7 @@
     image: "{{ docker_prometheus_image | default('prom/prometheus') }}"
     hostname: prometheus.jtronics.co
     state: started
-    recreate: true
+#    recreate: true
     user: 0
     restart_policy: always
     published_ports:

@@ -1,0 +1,4 @@
+---
+- name: Restart Prometheus
+  command: docker restart prometheus
+  ignore_errors: yes

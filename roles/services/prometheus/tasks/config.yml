@@ -5,3 +5,4 @@
     owner: nobody
     group: nogroup
     mode: 0600
+  notify: Restart Prometheus
