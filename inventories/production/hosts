@@ -18,11 +18,13 @@ ubuntu18-04-server ansible_ssh_host=ubuntu18-04-server.local ansible_ssh_extra_a
 [kvm-guests]
 bastion
 dnode0
+dnas
 gitlab-runners
 lemnos
 
 [docker-hosts]
 dnode0
+dnas
 gitlab-runners
 lemnos
 
@@ -33,3 +35,4 @@ bastion
 dnode0
 gitlab-runners
 lemnos
+dnas
