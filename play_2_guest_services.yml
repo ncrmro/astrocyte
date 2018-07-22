@@ -10,6 +10,17 @@
   roles:
     - docker
 
+- name: Setup Dnas hosts.
+  hosts: dnas
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
+    - vars/users.yml
+  roles:
+    - services/pxe
+
 - name: Set up dnode0 play
   hosts: dnode0
   become: true
