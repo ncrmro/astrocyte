@@ -54,10 +54,6 @@
 #    - src: traefik_rev1.json.j2
 #      dest: /var/lib/docker/volumes/grafana_data/_data/dashboards/traefik_rev1.json
 
-- name: Restart grafana container.
-  docker_container:
-    name: grafana
-    restart: true
 
 # docker rm -f grafana
 # sudo docker rm -f grafana && sudo docker volume rm grafana_config grafana_data
