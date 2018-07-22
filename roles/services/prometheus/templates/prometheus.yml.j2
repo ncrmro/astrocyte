@@ -22,6 +22,10 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
+  - job_name: 'dnas node exporter'
+    static_configs:
+      - targets: ['dnas.local:9100']
+
   - job_name: 'traefik'
     static_configs:
       - targets: ['traefik:8080']

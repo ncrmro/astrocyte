@@ -22,6 +22,7 @@
       leviathian.local: "{{ kvm_guest_leviathian_ip4 }}"
       earthdiver.local: "{{ kvm_guest_earthdiver_ip4 }}"
       bastion.local: "{{ kvm_guest_bastion_ip4 }}"
+      dnas.local: "{{ kvm_guest_dnas_ip4 }}"
       dnode0.local: "{{ kvm_guest_dnode0_ip4 }}"
       lemnos.local: "{{ kvm_guest_lemnos_ip4 }}"
       gitlab-runners.local: "{{ kvm_guest_gitlab_runners_ip4 }}"
@@ -40,5 +41,3 @@
     port: 9100
     src: 172.17.0.0/16
   when: common_node_exporter_ip is defined
-
-# SRC=172.17.0.8
