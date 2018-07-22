@@ -5,7 +5,7 @@
 - name: Start traefik container.
   docker_container:
     name: traefik
-    image: traefik:v1.5.3-alpine
+    image: "{{ docker_traefik_image | default('traefik:latest') }}"
     state: started
     restart_policy: always
     published_ports:
