@@ -21,3 +21,4 @@
   roles:
     - services/traefik
     - services/prometheus
+    - services/postgres

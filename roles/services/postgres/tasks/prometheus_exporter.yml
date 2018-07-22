@@ -1,0 +1,12 @@
+- name: Start postgres exporter.
+  docker_container:
+    name: postgres_exporter
+    image: wrouesnel/postgres_exporter
+    state: started
+    restart_policy: always
+    networks:
+      - name: postgres
+    env:
+      DATA_SOURCE_NAME: "postgresql://{{admin_username}}:{{admin_password}}@postgres:5432/?sslmode=disable"
+    ports:
+      - '127.0.0.1:9187:9187'
