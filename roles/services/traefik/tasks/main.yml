@@ -1,0 +1,58 @@
+- name: Create traefik networks
+  docker_network:
+    name: traefik
+
+- name: Start traefik container.
+  docker_container:
+    name: traefik
+    image: traefik:v1.5.3-alpine
+    state: started
+    restart_policy: always
+    published_ports:
+      - 80:80
+      - 443:443
+    networks:
+      - name: traefik
+        aliases:
+            - traefik
+    volumes:
+      - traefik_data:/etc/traefik/certs/
+      - /var/run/docker.sock:/var/run/docker.sock
+    env:
+      CLOUDFLARE_EMAIL: "{{cloudflare_email}}"
+      CLOUDFLARE_API_KEY: "{{cloudflare_api_key}}"
+#    labels:
+#     traefik.enable: "true"
+#     traefik.frontend.rule: Host:traefik.dnode0.home.jtronics.co
+#     traefik.port: "8080"
+#     traefik.docker.network: traefik
+    command: >
+      --docker.exposedbydefault=false
+      --entrypoints='Name:http Address::80 Redirect.EntryPoint:https'
+      --entrypoints='Name:https Address::443 TLS'
+      --acme
+      --acme.dnsChallenge.provider='cloudflare'
+      --acme.email=ncrmro@gmail.com
+      --acme.storage=/etc/traefik/certs/acme.json
+      --acme.entrypoint="https"
+      --acme.onhostrule
+      --acme.domains=dnode0.home.jtronics.co
+      --defaultEntryPoints='http,https'
+      --docker
+      --docker.domain=dnode0.home.jtronics.co
+      --docker.watch
+      --web.metrics.prometheus=true
+      --web.metrics.prometheus.buckets="0.1,0.3,1.2,5.0"
+
+
+#
+#- name: Start extract certificates.
+#  docker_container:
+#    name: extractor
+#    image: danielhuisman/traefik-certificate-extractor
+#    state: started
+#    recreate: true
+#  volumes:
+#      - traefik_data:/app/data/:ro
+#      - traefik_certs:/app/certs/
+

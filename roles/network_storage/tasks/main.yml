@@ -1,0 +1,5 @@
+---
+- name: Install packages to allow apt to use a repository over HTTPS
+  apt: name={{item}} state=present
+  with_items:
+       - nfs-kernel-server
