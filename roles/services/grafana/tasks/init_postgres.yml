@@ -1,0 +1,23 @@
+- name: Wait for postgres to become available
+  wait_for:
+    port: 5432
+    host: 'localhost'
+    delay: 10
+
+- name: Create grafana pg user
+  postgresql_user:
+    name: "{{grafana_postgres_user_username}}"
+    password: "{{grafana_postgres_user_password}}"
+    expires: infinity
+    encrypted: yes
+    login_host: localhost
+    login_user: "{{postgres_admin_username}}"
+    login_password: "{{postgres_admin_password}}"
+
+- name: Create grafana pg database
+  postgresql_db:
+    name: "{{grafana_postgres_db_name}}"
+    owner: "{{grafana_postgres_user_username}}"
+    login_host: localhost
+    login_user: "{{postgres_admin_username}}"
+    login_password: "{{postgres_admin_password}}"
