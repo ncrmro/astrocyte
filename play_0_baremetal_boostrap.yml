@@ -12,3 +12,14 @@
     - common
     - users
     - baremetal
+
+- name: NAS hosts roles.
+  hosts: nas
+  become_user: root
+  remote_user: ncrmro
+  become: true
+  vars_files:
+    - vars/users.yml
+    - vars/env.yml
+  roles:
+    - network_storages

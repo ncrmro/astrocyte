@@ -1,14 +1,16 @@
 # astrocyte
 
-## Project Scope
+## Project Scope & Methidologies
 
 * Baremetal
 * KVM Host
 * KVM Guest Provisioning
 
-The first Ansible play is to set up baremetal eg disks and network interfaces.
+### Plays
+1. Set up baremetal eg disks and network interfaces.
+1. Initialize KVM hosts and guests, as well as run docker and security tasks.
+1. Initialize network storage
 
-Thes second plays intializes KVM hosts and guests
 
 ## Setup
 `brew install python pipenv`
@@ -71,3 +73,6 @@ earthdiver
 
 
 ocean
+
+
+https://github.com/stuvusIT/zfs-storage
