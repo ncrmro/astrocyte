@@ -10,8 +10,8 @@
   roles:
     - kvm_host
 
-- name: Setup KVM guests.
-  hosts: kvm-hosts
+- name: Setup leviathian guests.
+  hosts: leviathian
   become: true
   vars_files:
     - vars/kvm.yml
@@ -35,4 +35,4 @@
     common_node_exporter: true
   roles:
     - common
-#    - security
+    - security
