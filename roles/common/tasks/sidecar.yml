@@ -1,0 +1,25 @@
+- name: Download sidecar
+  get_url:
+    url: https://github.com/Graylog2/collector-sidecar/releases/download/0.1.5/collector-sidecar_0.1.5-1_amd64.deb
+    dest: /tmp/collector-sidecar.deb
+    mode: 0440
+
+- name: Check if Graylog sidecar installed
+  shell: dpkg-query -W 'collector-sidecar'
+  ignore_errors: True
+  register: is_sidecar_installed
+
+- name: Install sidecar
+  shell: >
+    dpkg -i /tmp/collector-sidecar.deb \
+    && graylog-collector-sidecar -service install \
+    && systemctl start collector-sidecar
+  when: is_sidecar_installed is failed
+
+- name: Change sidecar url
+  lineinfile:
+    dest: /etc/graylog/collector-sidecar/collector_sidecar.yml
+    regexp: 'server_url:'
+    line: 'server_url: https://graylog.jtronics.co/api/'
+    state: present
+  notify: Restart Graylog sidecar
