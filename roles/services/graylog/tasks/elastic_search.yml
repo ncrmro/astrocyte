@@ -1,25 +1,28 @@
-
+# Need simple hostname without underscores
 - name: Create networks
   docker_network:
-    name: graylog_elasticsearch
+    name: graylogelasticsearch
 
 - name: Start elasticsearch container.
   docker_container:
-    name: graylog_elasticsearch
+    name: graylogelasticsearch
     image: "{{ docker_graylog_elasticsearch_image | default('docker.elastic.co/elasticsearch/elasticsearch:latest') }}"
-    #command: elasticsearch -Des.cluster.name="graylog"
     state: started
     restart_policy: always
     networks:
-      - name: graylog_elasticsearch
+      - name: graylogelasticsearch
     volumes:
       - graylog_elasticsearch_data:/usr/share/elasticsearch/data
+#    ulimits:
+#      memlock:
+#        soft: "-1"
+#        hard: "-1"
     env:
       cluster.name: graylog
       http.host: 0.0.0.0
       network.host: 0.0.0.0
-      transport.host: localhost
-      bootstrap.memory_lock: true
+      transport.host: 0.0.0.0
+#      bootstrap.memory_lock: "true"
       xpack.security.enabled: "false"
       ES_JAVA_OPTS: "-Xms1024m -Xmx1024m"
 
@@ -32,4 +35,4 @@
 #    ports:
 #      - '127.0.0.1:27017:27017'
 
-# sudo docker rm -f graylog_elasticsearch && sudo docker volume rm graylog_elasticsearch_data
+# sudo docker rm -f graylogelasticsearch && sudo docker volume rm graylog_elasticsearch_data

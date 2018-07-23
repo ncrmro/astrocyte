@@ -3,12 +3,11 @@
     name: graylog
     image: "{{ docker_graylog_image | default('graylog/graylog:latest') }}"
     state: started
-    recreate: yes
     restart_policy: always
     networks:
       - name: traefik
       - name: mongo
-      - name: graylog_elasticsearch
+      - name: graylogelasticsearch
     volumes:
       - graylog_config:/usr/share/graylog/data/config
       - graylog_data:/usr/share/graylog/data/journal

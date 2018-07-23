@@ -15,4 +15,7 @@
     dest: /var/lib/docker/volumes/graylog_config/_data/graylog.conf
     mode: 0600
 
-- import_tasks: elastic_search.yml
+- name: Wait for mongo and and elastic search to finish initializing.
+  pause: seconds=30
+
+- import_tasks: graylog.yml

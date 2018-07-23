@@ -15,8 +15,8 @@ graylog_config_root_password_sha2
 
 ### Reset Docker
 
-sudo docker rm -f graylog mongo elasticsearch ; \
-sudo docker volume rm -f mongo_data graylog_config graylog_data graylog_plugins
+sudo docker rm -f graylog mongo graylog_elasticsearch ; \
+sudo docker volume rm -f mongo_data graylog_config graylog_data graylog_plugins graylog_elasticsearch_data
 
 
 
