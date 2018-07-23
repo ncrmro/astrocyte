@@ -13,3 +13,6 @@
 
 - import_tasks: prometheus-exporter.yml
   when: common_node_exporter
+
+- import_tasks: sidecar.yml
+  when: common_sidecar
