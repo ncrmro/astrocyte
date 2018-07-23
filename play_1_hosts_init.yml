@@ -1,6 +1,6 @@
 ---
-- name: Setup KVM hosts.
-  hosts: kvm-hosts
+- name: Setup Dnas hosts.
+  hosts: dnas
   become: true
   vars_files:
     - vars/kvm.yml
@@ -8,10 +8,10 @@
     - vars/vault.yml
     - vars/users.yml
   roles:
-    - kvm_host
+    - services/pxe
 
-- name: Setup leviathian guests.
-  hosts: leviathian
+- name: Set up dnode0 play
+  hosts: dnode0
   become: true
   vars_files:
     - vars/kvm.yml
@@ -19,9 +19,14 @@
     - vars/vault.yml
     - vars/users.yml
   roles:
-    - kvm_guests
+    - services/traefik
+    - services/prometheus
+    - services/postgres
+    - services/mongo
+    - services/grafana
+    - services/graylog
 
-- name: Secure guests and hosts.
+- name: Setup hosts for graylog and prometheus monitoring.
   hosts: ubuntu
   become_user: root
   remote_user: ncrmro
@@ -33,6 +38,6 @@
     - vars/users.yml
   vars:
     common_node_exporter: true
+    common_sidecar: true
   roles:
     - common
-    - security

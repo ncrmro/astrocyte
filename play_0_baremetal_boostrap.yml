@@ -1,5 +1,4 @@
 ---
-
 - name: Base hosts roles.
   hosts: baremetal
   become_user: root
@@ -10,6 +9,7 @@
     - vars/env.yml
   roles:
     - common
+    - security
     - users
     - baremetal
 
@@ -22,4 +22,51 @@
     - vars/users.yml
     - vars/env.yml
   roles:
-    - network_storages
+    - network_storage
+
+- name: Setup KVM hosts.
+  hosts: kvm-hosts
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
+    - vars/users.yml
+  roles:
+    - kvm_host
+
+- name: Setup leviathian guests.
+  hosts: leviathian
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
+    - vars/users.yml
+  roles:
+    - kvm_guests
+
+- name: Secure newly provisioned guests.
+  hosts: ubuntu
+  become_user: root
+  remote_user: ncrmro
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
+    - vars/users.yml
+  roles:
+    - common
+    - security
+
+- name: Setup Docker hosts.
+  hosts: docker-hosts
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/vault.yml
+    - vars/users.yml
+  roles:
+    - docker
