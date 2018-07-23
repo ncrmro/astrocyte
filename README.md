@@ -1,5 +1,5 @@
 # Astrocyte
-A set of [Ansible](www.ansible.com) plays and tasks to provision your own private intranets.
+A set of [Ansible](https://ansible.com) plays and tasks to provision your own private intranets.
 
 ### Host Overview
 * NAS - Durable Storage
@@ -13,11 +13,11 @@ A set of [Ansible](www.ansible.com) plays and tasks to provision your own privat
 The idea being, while cloud providers such as the one below are available.
 Running your own hybrid internal infrastructure alongside cloud providers can be easy, cost-effective and highly preformat. 
  
-* [AWS](aws.amazon.com)
-* [Azure](azure.microsoft.com)
-* [Google Cloud](cloud.google.com)
-* [Digital Ocean](digitalocean.com)
-* [Vultr](vultr.com)
+* [AWS](https://aws.amazon.com)
+* [Azure](https://azure.microsoft.com)
+* [Google Cloud](https://cloud.google.com)
+* [Digital Ocean](https://digitalocean.com)
+* [Vultr](https://vultr.com)
 
 This means functional parity with the above on the following
  
@@ -46,22 +46,22 @@ Setup and secure various Baremetal, VM guests and Docker hosts.
 ###  Service Provisioning 
 Set up services dependent services such as proxies and databases, then start ops services. 
 
-* [Traefik](traefik.io) Edge Router & Proxy
+* [Traefik](https://traefik.io) Edge Router & Proxy
 * Databases & Stateful backends 
-    * [Prometheus](prometheus.io)
-    * [Postgres](postgresql.org)
-    * [Mongo](mongodb.com)
-    * [Elasticsearch](elastic.co)
+    * [Prometheus](https://prometheus.io)
+    * [Postgres](https://postgresql.org)
+    * [Mongo](https://mongodb.com)
+    * [Elasticsearch](https://elastic.co)
 * Ops
-    * [Grafana](grafana.com) - Data visualization & Monitoring
-    * [Graylog](graylog.org) - Log Management
+    * [Grafana](https://grafana.com) - Data visualization & Monitoring
+    * [Graylog](https://graylog.org) - Log Management
 
 ### Plays
 1. Set up baremetal eg disks and network interfaces.
 1. Initialize KVM hosts and guests, as well as run docker and security tasks.
 1. Initialize network storage
 
-## Origins of Name - [Astrocytes](en.wikipedia.org/wiki/Astrocyte)
+## Origins of Name - [Astrocytes](https://en.wikipedia.org/wiki/Astrocyte)
 
 _...are cells in the brain and spinal cord... They perform many functions,
 including support of cells that form the blood-brain barrier,
@@ -77,7 +77,7 @@ The names should be able to be shortened `ssh dive` or `ssh levi` for example.
 
 Ansible inventories should be structured such that hostnames can easily be refactored to anything you like.
 
-### [Earthdiver](en.wikipedia.org/wiki/Creation_myth#Earth-diver)
+### [Earthdiver](https://en.wikipedia.org/wiki/Creation_myth#Earth-diver)
 _Earth diver creation in which a diver, usually a bird or amphibian sent by a creator,
  plunges to the seabed through a primordial ocean to bring up sand or mud which develops into a terrestrial world...
  is among the first of them to awaken and 
@@ -86,7 +86,7 @@ _Earth diver creation in which a diver, usually a bird or amphibian sent by a cr
 #### [Cosmic Ocean](https://en.wikipedia.org/wiki/Cosmic_ocean)
 _a mythological motif found in the mythology of many cultures and civilizations, representing the world or cosmos as enveloped by primordial waters._
 
-### [Leviathian](en.wikipedia.org/wiki/Leviathan)
+### [Leviathian](https://en.wikipedia.org/wiki/Leviathan)
 _A primeval...dragon and world serpent...
 with a literal meaning of "wreathed, twisted in folds"...
 The word Leviathan has come to refer to any sea monster._
