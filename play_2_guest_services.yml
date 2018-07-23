@@ -35,3 +35,4 @@
     - services/postgres
     - services/mongo
     - services/grafana
+    - services/graylog

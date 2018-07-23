@@ -1,0 +1,14 @@
+- name: Wait for mongo to become available
+  wait_for:
+    port: 27017
+    host: 'localhost'
+
+- name: Create 'graylog' database user with name 'graylog' and password '...'.
+  mongodb_user:
+    login_user: "{{ mongo_admin_username }}"
+    login_password: "{{ mongo_admin_password }}"
+    database: "{{graylog_mongo_db_name}}"
+    name: "{{ graylog_mongo_user_username }}"
+    password: "{{ graylog_mongo_user_password }}"
+    state: present
+    roles: dbAdmin,readWrite

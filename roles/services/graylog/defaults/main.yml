@@ -1,0 +1,9 @@
+---
+graylog_admin_username: graylog
+graylog_admin_password_sha2: secret
+graylog_admin_email: admin@graylog.com
+
+graylog_mongo_hostname: mongo
+graylog_mongo_db_name: graylog
+graylog_mongo_user_username: graylog
+graylog_mongo_user_password: graylog
