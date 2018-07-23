@@ -1,4 +1,5 @@
 - import_tasks: mongo.yml
+- import_tasks: elastic_search.yml
 
 - name: Create graylog volumes
   docker_volume:
@@ -14,39 +15,4 @@
     dest: /var/lib/docker/volumes/graylog_config/_data/graylog.conf
     mode: 0600
 
-- name: Start graylog container.
-  docker_container:
-    name: graylog
-    image: graylog2/server:2.4.3-3
-    state: started
-    recreate: yes
-    restart_policy: always
-    networks:
-      - name: traefik
-      - name: mongo
-      - name: graylogelasticsearch
-    volumes:
-      - graylog_config:/usr/share/graylog/data/config
-      - graylog_data:/usr/share/graylog/data/journal
-      - graylog_plugins:/usr/share/graylog/plugin
-    labels:
-     traefik.enable: "true"
-     traefik.frontend.rule: Host:graylog.jtronics.co
-     traefik.port: "9000"
-     traefik.docker.network: traefik
-    env:
-      GRAYLOG_WEB_ENDPOINT_URI: "https://graylog.jtronics.co/api"
-    ports:
-      # Graylog web interface and REST API
-      # Handled by graylog
-      #- 9000:9000
-      # Syslog TCP
-      - 514:514
-      # Syslog UDP
-      - 514:514/udp
-      # GELF TCP
-      - 12201:12201
-      # GELF UDP
-      - 12201:12201/udp
-      # Beats input
-      - 5044:5044
+- import_tasks: elastic_search.yml

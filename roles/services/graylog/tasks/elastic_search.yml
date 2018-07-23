@@ -6,7 +6,7 @@
 - name: Start elasticsearch container.
   docker_container:
     name: graylog_elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.2
+    image: "{{ docker_graylog_elasticsearch_image | default('docker.elastic.co/elasticsearch/elasticsearch:latest') }}"
     #command: elasticsearch -Des.cluster.name="graylog"
     state: started
     restart_policy: always
@@ -15,11 +15,13 @@
     volumes:
       - graylog_elasticsearch_data:/usr/share/elasticsearch/data
     env:
+      cluster.name: graylog
       http.host: 0.0.0.0
-      transport.host: localhost
       network.host: 0.0.0.0
+      transport.host: localhost
+      bootstrap.memory_lock: true
       xpack.security.enabled: "false"
-      ES_JAVA_OPTS: "-Xms512m -Xmx512m"
+      ES_JAVA_OPTS: "-Xms1024m -Xmx1024m"
 
 # Disable X-Pack security: https://www.elastic.co/guide/en/elasticsearch/reference/5.6/security-settings.html#general-security-settings
 #    ulimits:
@@ -30,4 +32,4 @@
 #    ports:
 #      - '127.0.0.1:27017:27017'
 
-#sudo docker rm -f graylog mongo graylogelasticsearch ; sudo docker volume rm -f mongo_data graylog_config graylog_data graylog_plugins
+# sudo docker rm -f graylog_elasticsearch && sudo docker volume rm graylog_elasticsearch_data
