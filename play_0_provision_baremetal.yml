@@ -1,5 +1,5 @@
 ---
-- name: Base hosts roles.
+- name: Update hosts add in security roles.
   hosts: baremetal
   become_user: root
   remote_user: ncrmro
@@ -10,8 +10,9 @@
   roles:
     - common
     - security
-    - users
-    - baremetal
+#TODO make work with router stuck on ubuntu 16
+#    - users
+#    - baremetal
 
 - name: NAS hosts roles.
   hosts: nas

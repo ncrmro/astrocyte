@@ -4,6 +4,11 @@ ncrmro-desktop ansible_host=127.0.0.1 ansible_python_interpreter=/home/ncrmro/.v
 [baremetal]
 leviathian
 earthdiver
+boltzmann
+
+[router]
+boltzmann
+
 
 [kvm-hosts]
 leviathian
@@ -36,3 +41,4 @@ dnode0
 gitlab-runners
 lemnos
 dnas
+boltzmann
