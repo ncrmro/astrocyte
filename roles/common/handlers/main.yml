@@ -1,0 +1,8 @@
+---
+- name: Restart Graylog sidecar
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: collector-sidecar
+
+# systemctl status collector-sidecar.service
