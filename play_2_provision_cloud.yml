@@ -5,10 +5,9 @@
   vars_files:
     - vars/aws/general.yml
     - vars/aws/security_groups.yml
+    - vars/aws/ebs.yml
     - vars/vault.yml
     - vars/env.yml
-
-#  vars:
-#    ansible_ssh_private_key_file: "{{ ssh_key }}"
   roles:
     - aws/security
+    - aws/storage

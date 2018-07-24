@@ -13,3 +13,6 @@ aws_default_vpc_subnet_id: subnet-...
 # Must also match region above
 aws_default_ec2_image_id: ami-432eb53c
 
+aws_ec2_tag_defaults: &default_tags
+    Project: "{{ namespace }}"
+    Environment: "{{ current_environment }}"

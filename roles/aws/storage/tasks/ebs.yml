@@ -1,0 +1,25 @@
+- name: debug name
+  debug:
+    msg: "{{item}}"
+
+- name: Create EBS volume
+  ec2_vol:
+    ec2_access_key: "{{ ec2_access_key }}"
+    ec2_secret_key: "{{ ec2_secret_key }}"
+    region: "{{ ec2_region | default(aws_default_region) }}"
+    zone: "{{ ec2_zone | default(aws_default_zone)  }}"
+    name: "{{item.name}}"
+    tags: "{{item.tags}}"
+    device_name: "{{item.device_name}}"
+    volume_size: "{{item.volume_size}}"
+    volume_type: "{{item.volume_type}}"
+    delete_on_termination: "{{item.delete_on_termination}}"
+  register: ebs
+#
+#- name: Set ebs group facts
+#  set_fact: {"aws_ebs_{{ item.name }}":"{{ ebs }}"}
+#  cacheable: true
+#
+#- name: debug name
+#  debug:
+#    msg: "{{ hostvars[inventory_hostname]['aws_ebs_'+item.name] }}"
