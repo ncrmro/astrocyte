@@ -6,9 +6,12 @@
     - vars/aws/general.yml
     - vars/aws/security_groups.yml
     - vars/aws/ebs.yml
+    - vars/aws/elastic_ip.yml
     - vars/vault.yml
+    - vars/aws.vault.yml
     - vars/env.yml
   roles:
+    - aws/elastic_ip
     - aws/security
     - aws/storage
     - aws/ec2

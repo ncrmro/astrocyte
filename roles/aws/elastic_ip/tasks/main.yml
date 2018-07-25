@@ -1,0 +1,2 @@
+- include_tasks: elastic_ip.yml
+  with_items: "{{ aws_elastic_ip_volumes }}"
