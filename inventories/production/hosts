@@ -9,6 +9,10 @@ boltzmann
 [router]
 boltzmann
 
+[cloud_guests]
+jtco
+jtx
+hakata
 
 [kvm-hosts]
 leviathian
@@ -42,3 +46,6 @@ gitlab-runners
 lemnos
 dnas
 boltzmann
+jtco
+jtx
+hakata

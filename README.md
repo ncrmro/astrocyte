@@ -90,3 +90,10 @@ _a mythological motif found in the mythology of many cultures and civilizations,
 _A primeval...dragon and world serpent...
 with a literal meaning of "wreathed, twisted in folds"...
 The word Leviathan has come to refer to any sea monster._
+
+
+### [Hakata](https://en.wikipedia.org/wiki/Battle_of_Bun%27ei)
+
+First Battle of Hakata Bay, was the first attempt... by the Mongols to invade Japan... Kublai Khan's fleet... landed at Hakata Bay,
+Despite the superior weapons and tactics of the Mongols, the Yuan forces that disembarked at Hakata Bay were grossly outnumbered by the samurai force; 
+A typhoon that night, said to be divinely conjured wind, threatened their ships, persuading them to return to Korea. Many of the returning ships sank that night due to the storm.
