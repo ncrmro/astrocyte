@@ -15,11 +15,10 @@
     volume_type: "{{item.volume_type}}"
     delete_on_termination: "{{item.delete_on_termination}}"
   register: ebs
-#
-#- name: Set ebs group facts
-#  set_fact: {"aws_ebs_{{ item.name }}":"{{ ebs }}"}
-#  cacheable: true
-#
-#- name: debug name
-#  debug:
-#    msg: "{{ hostvars[inventory_hostname]['aws_ebs_'+item.name] }}"
+
+- name: Set ebs group facts
+  set_fact: {"aws_ebs_{{ item.name }}":"{{ ebs }}"}
+
+- name: debug name
+  debug:
+    msg: "{{ hostvars[inventory_hostname]['aws_ebs_' + item.name] }}"

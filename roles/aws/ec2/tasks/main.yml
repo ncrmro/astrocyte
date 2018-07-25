@@ -1,0 +1,2 @@
+- include_tasks: ec2.yml
+  with_items: "{{ aws_ec2_nodes }}"

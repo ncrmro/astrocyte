@@ -11,7 +11,7 @@ aws_ec2_securty_groups_whitelist:
 aws_ec2_security_groups_name_admin: "admin"
 aws_ec2_security_groups_name_web: "web"
 
-aws_ec2_tag_defaults: &default_tags
+aws_ec2_tag_defaults: &default_security_group_tags
     Project: "{{ namespace }}"
     Environment: "{{ current_environment }}"
 
@@ -19,7 +19,7 @@ aws_ec2_securty_groups:
     - name: "{{ aws_ec2_security_groups_name_admin}}"
       description: security group for admin access
       tags:
-        <<: *default_tags
+        <<: *default_security_group_tags
         Name: "{{ aws_ec2_security_groups_name_admin}}"
       rules:
         - proto: tcp
@@ -29,7 +29,7 @@ aws_ec2_securty_groups:
     - name: "{{ aws_ec2_security_groups_name_web }}"
       description: security group for web access
       tags:
-        <<: *default_tags
+        <<: *default_security_group_tags
         Name: "{{ aws_ec2_security_groups_name_web}}"
       rules:
         - proto: tcp

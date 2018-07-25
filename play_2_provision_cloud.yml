@@ -11,3 +11,4 @@
   roles:
     - aws/security
     - aws/storage
+    - aws/ec2

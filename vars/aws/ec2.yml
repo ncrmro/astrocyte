@@ -1,0 +1,24 @@
+###
+# Begin EC2 Config
+###
+
+aws_ec2_tag_defaults: &default_tags
+    Project: "{{ namespace }}"
+    Environment: "{{ current_environment }}"
+
+aws_ec2_node_astrocyte:
+  name: astrocyte
+  instance_type: t2.nano
+  assign_public_ip: false
+  vpc_subnet_id: "{{aws_default_vpc_subnet_id}}"
+  security_groups:
+    - "{{ aws_ec2_security_groups_name_web }}"
+  exact_count: 1
+  tags:
+      Name: "astrocyte"
+      <<: *default_tags
+  volumes:
+    - name: "{{aws_ebs_astrocyte_os_name}}"
+
+aws_ec2_nodes:
+    - "{{ aws_ec2_node_astrocyte }}"
