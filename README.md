@@ -77,23 +77,27 @@ The names should be able to be shortened `ssh dive` or `ssh levi` for example.
 
 Ansible inventories should be structured such that hostnames can easily be refactored to anything you like.
 
-### [Earthdiver](https://en.wikipedia.org/wiki/Creation_myth#Earth-diver)
+### [Botlzmann Brain](https://en.wikipedia.org/wiki/Boltzmann_brain) - Router
+_a self-aware entity that arises due to extremely rare random fluctuations out of a state of thermodynamic equilibrium. 
+For example, in a homogeneous Newtonian soup, theoretically by sheer chance all the atoms could bounce off and stick to 
+one another in such a way as to assemble a functioning human brain (though this would, 
+on average, take vastly longer than the current lifetime of the Universe).._
+
+### [Earthdiver](https://en.wikipedia.org/wiki/Creation_myth#Earth-diver) - NAS
 _Earth diver creation in which a diver, usually a bird or amphibian sent by a creator,
  plunges to the seabed through a primordial ocean to bring up sand or mud which develops into a terrestrial world...
  is among the first of them to awaken and 
  lay the necessary groundwork by building suitable lands where the coming creation will be able to live._
 
-#### [Cosmic Ocean](https://en.wikipedia.org/wiki/Cosmic_ocean)
-_a mythological motif found in the mythology of many cultures and civilizations, representing the world or cosmos as enveloped by primordial waters._
+#### [Cosmic Ocean](https://en.wikipedia.org/wiki/Cosmic_ocean) - ZFS Raid Pool - Durable Storage
+_A mythological motif found in the mythology of many cultures and civilizations, representing the world or cosmos as enveloped by primordial waters._
 
-### [Leviathian](https://en.wikipedia.org/wiki/Leviathan)
+### [Leviathian](https://en.wikipedia.org/wiki/Leviathan) - KVM High performance Compute Host
 _A primeval...dragon and world serpent...
 with a literal meaning of "wreathed, twisted in folds"...
 The word Leviathan has come to refer to any sea monster._
 
-
-### [Hakata](https://en.wikipedia.org/wiki/Battle_of_Bun%27ei)
-
-First Battle of Hakata Bay, was the first attempt... by the Mongols to invade Japan... Kublai Khan's fleet... landed at Hakata Bay,
+### [Hakata](https://en.wikipedia.org/wiki/Battle_of_Bun%27ei) - Public Infrastructure Access Point
+_First Battle of Hakata Bay, was the first attempt... by the Mongols to invade Japan... Kublai Khan's fleet... landed at Hakata Bay,
 Despite the superior weapons and tactics of the Mongols, the Yuan forces that disembarked at Hakata Bay were grossly outnumbered by the samurai force; 
-A typhoon that night, said to be divinely conjured wind, threatened their ships, persuading them to return to Korea. Many of the returning ships sank that night due to the storm.
+A typhoon that night, said to be divinely conjured wind, threatened their ships, persuading them to return to Korea. Many of the returning ships sank that night due to the storm._
