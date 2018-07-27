@@ -20,13 +20,19 @@
     path: "/usr/local/bin/node_exporter"
   register: node_exporter
 
+
+- set_fact:
+     common_sidecar: "{{ common_sidecar | default(false) }}"
+
 - name: Download and unarchive prometheus node exporter
   unarchive:
     src: https://github.com/prometheus/node_exporter/releases/download/v0.15.1/node_exporter-0.15.1.linux-amd64.tar.gz
     dest: /tmp
     creates: /usr/node_exporter-0.15.1.linux-amd64/node_exporter
     remote_src: yes
-  when: node_exporter.stat.exists != true
+  #when: node_exporter.stat.exists != true
+  when: "'ubuntu_arm7' not in group_names"
+
 
 - name: Extract Exporter
   shell: >
