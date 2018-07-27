@@ -19,6 +19,7 @@
       - name: postgres
       - name: prometheus
     etc_hosts:
+      boltzmann.local: "{{ kvm_guest_boltzmann_ip4 }}"
       leviathian.local: "{{ kvm_guest_leviathian_ip4 }}"
       earthdiver.local: "{{ kvm_guest_earthdiver_ip4 }}"
       bastion.local: "{{ kvm_guest_bastion_ip4 }}"

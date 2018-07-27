@@ -1,25 +1,24 @@
 [local]
 ncrmro-desktop ansible_host=127.0.0.1 ansible_python_interpreter=/home/ncrmro/.venv/astrocyte/bin/python
 
-[baremetal]
-leviathian
-earthdiver
-boltzmann
-
 [router]
 boltzmann
+
+[nas]
+earthdiver
+
+[kvm-hosts]
+leviathian
+
+[baremetal:children]
+router
+nas
+kvm-hosts
 
 [cloud_guests]
 jtco
 jtx
 hakata
-
-[kvm-hosts]
-leviathian
-earthdiver
-
-[nas]
-earthdiver
 
 [kvm-base-guests]
 ubuntu18-04-server ansible_ssh_host=ubuntu18-04-server.local ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
@@ -37,15 +36,14 @@ dnas
 gitlab-runners
 lemnos
 
-[ubuntu]
-leviathian
-earthdiver
-bastion
-dnode0
-gitlab-runners
-lemnos
-dnas
+[ubuntu_64x:children]
+nas
+kvm-hosts
+kvm-guests
+
+[ubuntu_arm7]
 boltzmann
-jtco
-jtx
-hakata
+
+[ubuntu:children]
+ubuntu_64x
+ubuntu_arm7
