@@ -18,6 +18,9 @@ Activate the virtualenv
 Install project dependencies
 `pipenv install`
 
+
+`sudo fdisk -l`
+
 ### Ansible Vault
 
 Create a password file
