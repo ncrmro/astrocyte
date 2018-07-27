@@ -1,6 +1,9 @@
 # Astrocyte
 A set of [Ansible](https://ansible.com) plays and tasks to provision your own private intranets.
 
+This article `Explain how to think about ansible and how to use it` found 
+[here]([](https://gist.github.com/MrNice/89a3bbe44e218c9d2309)), can help you understand whats happening
+
 ### Host Overview
 * NAS - Durable Storage
 * VM Providers - Baremetal Hypervisor
