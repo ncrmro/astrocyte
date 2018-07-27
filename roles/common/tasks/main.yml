@@ -1,18 +1,20 @@
 ---
-- set_fact:
+- name: Make sure hosts are up to date.
+  import_tasks: updates.yml
+
+- name: Install only specified sets based on vars set at runtime.
+  set_fact:
      common_sidecar: "{{ common_sidecar | default(false) }}"
      common_node_exporter: "{{ common_node_exporter | default(false) }}"
      common_security: "{{ common_security | default(false) }}"
 
-- name: Only run "update_cache=yes" if the last one is more than 3600 seconds ago
-  apt:
-#    upgrade: yes
-    update_cache: yes
-    cache_valid_time: 3600
-  become: true
+- name: Gather additional host facts.
+  import_tasks: facts.yml
 
-- import_tasks: prometheus-exporter.yml
+- name: Install prometheus exporter to allow hosts to serve hardware metrics data.
+  import_tasks: prometheus-exporter.yml
   when: common_node_exporter
 
-- import_tasks: sidecar.yml
+- name: Install Graylog side car to gather data.
+  import_tasks: sidecar.yml
   when: common_sidecar
