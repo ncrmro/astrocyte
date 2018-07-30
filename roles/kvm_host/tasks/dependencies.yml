@@ -40,3 +40,5 @@
     line: 'GRUB_CMDLINE_LINUX_DEFAULT="intel_iommu=on"'
     state: present
   notify: update grub
+
+- include_tasks: arm.yml
