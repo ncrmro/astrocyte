@@ -1,0 +1,39 @@
+
+###
+# Begin LAN Section
+###
+
+kvm_host_static_ip: 192.168.1.14
+
+whitelisted_ips:
+  - 192.168.1.11
+  - 192.168.1.12
+
+###
+# Begin DNS Section
+###
+
+cf: "cloudflare"
+aws: "aws"
+
+
+dns_routes:
+  - zone: astrocyte.com
+    provider: "{{ cf }}"
+    types:
+      - value: 10.1.1.10
+        type: A
+        proxied: true
+      - record: www
+        value: astrocyte.com
+        type: CNAME
+        proxied: true
+  - zone: astrocyte.services
+    provider: "{{ aws }}"
+    types:
+      - record: docker-node0
+        value: 24.53.192.274
+        type: A
+      - record: tx.zones
+        value: 2001:19f0:6441:10f1:5400:01ff:fe19:9514
+        type: AAAA

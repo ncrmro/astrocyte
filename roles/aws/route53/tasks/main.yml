@@ -1,0 +1,20 @@
+- name: Debug Current AWS net
+  debug:
+    msg: "{{r53_route}}"
+
+- route53:
+      aws_access_key: "{{ ec2_access_key }}"
+      aws_secret_key: "{{ ec2_secret_key }}"
+      state: "{{r53_route.state | default('present') }}"
+      zone: "{{r53_route.zone}}"
+      record: "{{ item.record + '.' + r53_route.zone }}"
+      type: "{{item.type}}"
+      ttl: "{{ r53_route.TTL | default(3600) }}"
+      value: "{{item.value}}"
+      wait: yes
+  with_items: "{{ r53_route.types }}"
+
+
+
+
+# https://docs.ansible.com/ansible/2.6/modules/route53_module.html

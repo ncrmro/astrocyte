@@ -5,8 +5,8 @@
   vars_files:
     - vars/kvm.yml
     - vars/env.yml
-    - vars/vault.yml
     - vars/users.yml
+    - vars/vault/main.yml
   roles:
     - services/pxe
 
@@ -16,8 +16,8 @@
   vars_files:
     - vars/kvm.yml
     - vars/env.yml
-    - vars/vault.yml
     - vars/users.yml
+    - vars/vault/main.yml
   roles:
     - services/traefik
     - services/prometheus
@@ -34,8 +34,8 @@
   vars_files:
     - vars/kvm.yml
     - vars/env.yml
-    - vars/vault.yml
     - vars/users.yml
+    - vars/vault/main.yml
   vars:
     common_node_exporter: true
     common_sidecar: true

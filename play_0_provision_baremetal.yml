@@ -31,8 +31,8 @@
   vars_files:
     - vars/kvm.yml
     - vars/env.yml
-    - vars/vault.yml
     - vars/users.yml
+    - vars/vault/main.yml
   roles:
     - kvm_host
 
@@ -42,8 +42,8 @@
   vars_files:
     - vars/kvm.yml
     - vars/env.yml
-    - vars/vault.yml
     - vars/users.yml
+    - vars/vault/main.yml
   roles:
     - kvm_guests
 
@@ -55,8 +55,8 @@
   vars_files:
     - vars/kvm.yml
     - vars/env.yml
-    - vars/vault.yml
     - vars/users.yml
+    - vars/vault/main.yml
   roles:
     - common
     - security
@@ -67,7 +67,7 @@
   vars_files:
     - vars/kvm.yml
     - vars/env.yml
-    - vars/vault.yml
     - vars/users.yml
+    - vars/vault/main.yml
   roles:
     - docker
