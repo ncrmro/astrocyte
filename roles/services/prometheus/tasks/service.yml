@@ -12,6 +12,7 @@
     command: >
       --config.file=/etc/prometheus/prometheus.yml
       --storage.tsdb.path=/data
+      --storage.tsdb.retention=10y
     networks:
 #      - name: bridge
 #        ipv4_address: 172.17.0.8
