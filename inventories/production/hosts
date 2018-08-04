@@ -36,10 +36,22 @@ dnas
 gitlab-runners
 lemnos
 
+[kubernetes_master]
+k8-master0 ansible_ssh_host=k8-master0.local
+
+[kubernetes_worker]
+k8-worker0 ansible_ssh_host=k8-worker0.local
+k8-worker1 ansible_ssh_host=k8-worker1.local
+
+[kubernetes_nodes:children]
+kubernetes_master
+kubernetes_worker
+
 [ubuntu_64x:children]
 nas
 kvm-hosts
 kvm-guests
+kubernetes_nodes
 
 [ubuntu_arm7]
 boltzmann
