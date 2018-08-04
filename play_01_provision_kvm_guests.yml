@@ -1,0 +1,50 @@
+---
+- name: Setup KVM guests.
+  hosts: kvm-hosts
+  become: true
+  tags: "kvm"
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/users.yml
+    - vars/vault/main.yml
+  roles:
+    - kvm_guests
+
+- name: Secure newly provisioned guests.
+  hosts: kvm-guests
+  become_user: root
+  remote_user: ncrmro
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/users.yml
+    - vars/vault/main.yml
+  roles:
+    - common
+    - security
+
+- name: Setup Docker hosts.
+  hosts: docker-hosts
+  tags: "docker"
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/users.yml
+    - vars/vault/main.yml
+  roles:
+    - docker
+
+- name: Setup Kubernetes hosts.
+  hosts: k8-hosts
+  tags: "docker"
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/users.yml
+    - vars/vault/main.yml
+  roles:
+    - docker
