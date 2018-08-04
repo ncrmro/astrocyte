@@ -35,6 +35,10 @@
   include_tasks: util/changehostname.yml
   when: guest.name not in vms.list_vms
 
+- name: Wait for async change hostname..
+  pause: seconds=45
+  when: guest.name not in vms.list_vms
+
 - import_tasks: util/reboot.yml
   vars:
     name: "{{ guest.name }}"
