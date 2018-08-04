@@ -109,3 +109,9 @@ Hostnames used laters as well need to have - not underscore _
 
 
 https://forums.freenas.org/index.php?threads/some-insights-into-slog-zil-with-zfs-on-freenas.13633/
+
+
+https://en.wikipedia.org/wiki/OSI_model
+
+Converting old hosts to KVM
+http://manpages.ubuntu.com/manpages/bionic/man1/virt-p2v.1.html
