@@ -56,7 +56,7 @@ Editing the vault file
 ```
 export EDITOR=nano && \
 export VAULT_PASSFILE=~/.ansible/.vault_pass.txt && \
-ansible-vault edit --vault-password-file $VAULT_PASSFILE vars/vault.yml
+ansible-vault edit --vault-password-file $VAULT_PASSFILE vars/vault/main.yml
 
 export EDITOR=nano && \
 export VAULT_PASSFILE=~/.ansible/.vault_pass.txt && \

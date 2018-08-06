@@ -16,6 +16,9 @@ sudo ufw allow from 192.168.1.66 to any port 4045 && \
 sudo ufw allow from 192.168.1.69 to any port 4045 && \
 sudo ufw reload
 
+
+sudo ufw allow from 192.168.1.66 to any app Samba
+
 # ZFS Host
 If this system will use NFS (locking):
 ```
@@ -107,3 +110,21 @@ sudo nano /etc/fstab
 
 192.168.1.169:/ocean/iso    /ocean/iso    nfs    defaults,proto=tcp,port=2049    0 0
 192.168.1.169:/ocean/vm    /ocean/vm    nfs    defaults,proto=tcp,port=2049    0 0
+
+
+## Samba
+
+sudo apt-get install -y samba
+
+sudo nano /etc/samba/smb.conf
+
+sudo zfs set sharesmb=on tank
+
+zfs create \
+-o mountpoint=/ocean/timemachine \
+raidp/ocean/timemachine
+
+sudo zfs set sharesmb=on raidp/ocean/timemachine
+
+
+zfs set sharesmb=name=timemachine,on raidp/ocean/timemachine
