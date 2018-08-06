@@ -1,0 +1,10 @@
+- name: Install security packages
+  apt: name={{item}} state=present
+  with_items:
+       - python-dev
+       - libffi-dev
+       - libssl-dev
+
+- name: Install pyOpenSSL
+  pip:
+    name: pyOpenSSL
