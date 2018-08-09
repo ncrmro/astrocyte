@@ -17,8 +17,6 @@
     regexp: '^{{ guest.base_guest.hostname }}'
     line: '{{ guest.hostname }}'
     state: present
-  async: 30
-  poll: 0
   delegate_to: "{{ guest.base_guest.hostname }}"
 
 - set_fact:

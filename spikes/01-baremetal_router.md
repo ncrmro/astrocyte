@@ -37,3 +37,10 @@ mongodb-org-tools
 
 https://community.ubnt.com/t5/UniFi-Wireless/Unifi-controller-on-Ubuntu-18-04/td-p/2331657
 https://wiki.ubuntu.com/vlan
+
+
+https://community.ubnt.com/t5/UniFi-Wireless/Choosing-Channels-on-80MHz-Width/td-p/1580681
+
+https://community.ubnt.com/t5/UniFi-Wireless/Password-change-on-AP-s-after-provisioning/td-p/532144
+https://community.ubnt.com/t5/UniFi-Wireless/UniFi-is-stuck-at-Adopting/td-p/120180
+https://hub.docker.com/r/linuxserver/unifi/

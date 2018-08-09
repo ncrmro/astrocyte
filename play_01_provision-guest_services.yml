@@ -11,6 +11,22 @@
   roles:
     - kvm_guests
 
+- name: Setup ubiquiti controller
+  hosts: ucont
+  become_user: root
+  remote_user: ncrmro
+  become: true
+  vars_files:
+    - vars/kvm.yml
+    - vars/env.yml
+    - vars/users.yml
+    - vars/vault/main.yml
+  roles:
+    - common
+    - security
+    - docker
+    - ubiquiti_controller
+
 - name: Secure newly provisioned guests.
   hosts: kvm-guests
   become_user: root

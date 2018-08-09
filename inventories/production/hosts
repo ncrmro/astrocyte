@@ -29,12 +29,14 @@ dnode0
 dnas
 gitlab-runners
 lemnos
+ucont
 
 [docker-hosts]
 dnode0
 dnas
 gitlab-runners
 lemnos
+ucont
 
 [kubernetes_master]
 k8-master0 ansible_ssh_host=k8-master0.local
