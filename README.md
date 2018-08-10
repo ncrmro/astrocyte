@@ -2,7 +2,7 @@
 A set of [Ansible](https://ansible.com) plays and tasks to provision your own private intranets.
 
 This article `Explain how to think about ansible and how to use it` found 
-[here]([](https://gist.github.com/MrNice/89a3bbe44e218c9d2309)), can help you understand whats happening
+[here](https://gist.github.com/MrNice/89a3bbe44e218c9d2309), can help you understand whats happening
 
 ### Host Overview
 * NAS - Durable Storage
@@ -11,7 +11,7 @@ This article `Explain how to think about ansible and how to use it` found
     * Cloud - AWS, etc
 * Router - Routing and Name Resolution
 
-## Project Scope & Methodologies
+## Project Scope, Philosophy & Methodologies
 
 The idea being, while cloud providers such as the one below are available.
 Running your own hybrid internal infrastructure alongside cloud providers can be easy, cost-effective and highly preformat. 
@@ -27,6 +27,9 @@ This means functional parity with the above on the following
 * dynamic allocation of resources
 * durable storage
 * routing
+
+This boilerplate should get each host and service to an appliance like standard, having only the nessary packages needed,static IP's set and ports firewalled.
+Eg The nas should 
 
 ### Baremetal Provisioning
 Setup and secure various Baremetal, VM guests and Docker hosts. 
