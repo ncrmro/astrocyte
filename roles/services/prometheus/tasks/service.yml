@@ -4,7 +4,7 @@
     image: "{{ docker_prometheus_image | default('prom/prometheus') }}"
     hostname: prometheus.jtronics.co
     state: started
-#    recreate: true
+    recreate: true
     user: 0
     restart_policy: always
     published_ports:
@@ -20,11 +20,11 @@
       - name: postgres
       - name: prometheus
     etc_hosts:
-      boltzmann.local: "{{ kvm_guest_boltzmann_ip4 }}"
-      leviathian.local: "{{ kvm_guest_leviathian_ip4 }}"
-      earthdiver.local: "{{ kvm_guest_earthdiver_ip4 }}"
-      bastion.local: "{{ kvm_guest_bastion_ip4 }}"
-      dnas.local: "{{ kvm_guest_dnas_ip4 }}"
+      # boltzmann.local: "{{ host_boltzmann_ip4 }}"
+      earthdiver.local: "{{ host_earthdiver_ip4 }}"
+      leviathian.local: "{{ host_leviathian_ip4 }}"
+#      bastion.local: "{{ kvm_guest_bastion_ip4 }}"
+#      dnas.local: "{{ kvm_guest_dnas_ip4 }}"
       dnode0.local: "{{ kvm_guest_dnode0_ip4 }}"
       lemnos.local: "{{ kvm_guest_lemnos_ip4 }}"
       gitlab-runners.local: "{{ kvm_guest_gitlab_runners_ip4 }}"

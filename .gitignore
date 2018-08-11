@@ -74,3 +74,4 @@ Temporary Items
 ### Ansible template
 *.retry
 
+!/roles/services/prometheus/

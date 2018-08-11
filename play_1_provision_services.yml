@@ -18,6 +18,7 @@
     - vars/env.yml
     - vars/users.yml
     - vars/vault/main.yml
+    - vars/vault/routing.yml
   roles:
     - services/traefik
     - services/prometheus

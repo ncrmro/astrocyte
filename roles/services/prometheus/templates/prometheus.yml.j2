@@ -22,9 +22,9 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
 
-  - job_name: 'dnas node exporter'
-    static_configs:
-      - targets: ['dnas.local:9100']
+#  - job_name: 'dnas node exporter'
+#    static_configs:
+#      - targets: ['dnas.local:9100']
 
   - job_name: 'traefik'
     static_configs:
@@ -38,9 +38,9 @@ scrape_configs:
     static_configs:
       - targets: ['earthdiver.local:9100']
 
-  - job_name: 'bastion node exporter'
-    static_configs:
-      - targets: ['bastion.local:9100']
+#  - job_name: 'bastion node exporter'
+#    static_configs:
+#      - targets: ['bastion.local:9100']
 
   - job_name: 'dnode0 node exporter'
     static_configs:
@@ -54,6 +54,6 @@ scrape_configs:
     static_configs:
       - targets: ['lemnos.local:9100']
 
-  - job_name: 'Boltzmann node exporter'
-    static_configs:
-      - targets: ['boltzmann.local:9100']
+#  - job_name: 'Boltzmann node exporter'
+#    static_configs:
+#      - targets: ['boltzmann.local:9100']
