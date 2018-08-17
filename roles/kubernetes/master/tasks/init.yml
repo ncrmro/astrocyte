@@ -1,0 +1,51 @@
+---
+
+- name: Reset Kubernetes component
+  shell: "kubeadm reset"
+  register: reset_cluster
+
+- name: Init Kubernetes cluster
+  when: reset_cluster is succeeded
+  #--kubernetes-version {{ kube_version }} \
+  # Add in ip address so that ca authorty is valid
+  shell: >
+    kubeadm init
+    --service-cidr {{ service_cidr }}
+    --pod-network-cidr {{ pod_network_cidr }}
+    --token {{ token }}
+    --ignore-preflight-errors 'preflight'
+    --apiserver-advertise-address {{ k8_master0_ip }}
+    --apiserver-cert-extra-sans {{ k8_master0_ip }}
+    {{ kubeadm_opts }}
+    {{ init_opts }}
+  register: init_cluster
+
+- name: Create Kubernetes config directory
+  become: false
+  file: path="~/.kube/" state=directory
+
+- name: Change permissions of .kube/config
+  file: path=/etc/kubernetes/admin.conf mode=0775
+
+- name: Copy admin.conf to Home directory
+  when: init_cluster
+  become: false
+  copy:
+    src: "{{ kubeadmin_config }}"
+    dest: "~/.kube/config"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: 0755
+    remote_src: True
+
+- name: Enable and restart kubelet engine
+  systemd:
+    name: kubelet
+    daemon_reload: yes
+    state: restarted
+    enabled: yes
+  register: started_kubelet
+
+- name: Enable flannel network
+  shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  become: false

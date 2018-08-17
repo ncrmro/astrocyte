@@ -1,0 +1,31 @@
+- name: Install security packages
+  apt: name={{item}} state=present
+  with_items:
+       - python-dev
+       - libffi-dev
+       - libssl-dev
+
+- name: Install pyOpenSSL
+  pip:
+    name: pyOpenSSL
+
+
+- name: Add google pgp key
+  apt_key:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    state: present
+  register: add_repository_key
+  #ignore_errors: true
+
+- name: Add k8s apt repo
+  apt_repository:
+    repo: "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+    update_cache: yes
+
+- name: Install k8s packages
+  apt: name={{item}} state=present allow_unauthenticated=yes
+  with_items:
+       - kubelet
+       - kubeadm
+       - kubectl
+       - kubernetes-cni
