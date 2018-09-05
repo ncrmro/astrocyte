@@ -27,7 +27,7 @@ zfs create \
 -o mountpoint=/var/lib/nfs \
 rpool/var/nfs
 ```
-sudo zfs set sharenfs="rw=@192.168.11.0/24" tank
+sudo zfs set sharenfs="rw=@10.10.11.0/24" tank
 
 
 
@@ -118,13 +118,44 @@ sudo apt-get install -y samba
 
 sudo nano /etc/samba/smb.conf
 
-sudo zfs set sharesmb=on tank
+sudo zfs set sharesmb=off raidp/ocean/timemachine
 
 zfs create \
 -o mountpoint=/ocean/timemachine \
 raidp/ocean/timemachine
 
+
+zfs create \
+-o mountpoint=/ocean/guest \
+raidp/ocean/guest
+
+
 sudo zfs set sharesmb=on raidp/ocean/timemachine
 
 
 zfs set sharesmb=name=timemachine,on raidp/ocean/timemachine
+
+smbpasswd -a ncrmro
+
+
+zfs get -r share.smb.all
+
+sudo systemctl restart smbd
+
+smbclient -L localhost
+
+sudo chmod 777 /ocean/guest
+
+
+https://linuxconfig.org/how-to-configure-samba-server-share-on-ubuntu-18-04-bionic-beaver-linux
+
+
+
+Timemachine
+
+sudo tmutil setdestination /Volumes/cocean-timemachine
+diskutil cs convert disk4s2 -stdinpassphrase '!&Ple699*'
+
+
+https://apple.stackexchange.com/questions/103800/how-can-i-enable-time-machine-encryption-on-the-command-line
+https://forums.macrumors.com/threads/selecting-location-of-timemachine-backups.1544990/
