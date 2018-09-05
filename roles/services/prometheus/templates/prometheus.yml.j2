@@ -54,6 +54,10 @@ scrape_configs:
     static_configs:
       - targets: ['lemnos.local:9100']
 
+  - job_name: 'unifi node exporter'
+    static_configs:
+      - targets: ['unifi.local:9100']
+
 #  - job_name: 'Boltzmann node exporter'
 #    static_configs:
 #      - targets: ['boltzmann.local:9100']

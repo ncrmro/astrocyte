@@ -11,8 +11,8 @@
   roles:
     - kvm_guests
 
-- name: Setup ubiquiti controller
-  hosts: ucont
+- name: Setup unifi controller
+  hosts: unifi
   become_user: root
   remote_user: ncrmro
   become: true
