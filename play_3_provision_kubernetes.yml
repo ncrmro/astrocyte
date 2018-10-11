@@ -16,3 +16,20 @@
   roles:
     - common
     - docker
+
+- name: Install initial Kubernetes Master Dependencies
+  hosts: kubernetes_master
+  become_user: root
+  remote_user: ncrmro
+  become: true
+  gather_facts: yes
+  vars_files:
+    - vars/aws/general.yml
+    - vars/aws/security_groups.yml
+    - vars/aws/ebs.yml
+    - vars/aws/elastic_ip.yml
+    - vars/env.yml
+    - vars/vault/main.yml
+    - vars/vault/aws.yml
+  roles:
+    - kubernetes/master
