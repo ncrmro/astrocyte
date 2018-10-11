@@ -28,7 +28,7 @@
     - services/graylog
 
 - name: Setup hosts for graylog and prometheus monitoring.
-  hosts: ubuntu
+  hosts: docker-hosts
   become_user: root
   remote_user: ncrmro
   become: true
@@ -37,6 +37,7 @@
     - vars/env.yml
     - vars/users.yml
     - vars/vault/main.yml
+    - vars/vault/routing.yml
   vars:
     common_node_exporter: true
     common_sidecar: true
