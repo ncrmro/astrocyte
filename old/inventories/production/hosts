@@ -1,17 +1,13 @@
 [local]
 ncrmro-desktop ansible_host=127.0.0.1 ansible_python_interpreter=/home/ncrmro/.venv/astrocyte/bin/python
 
-[router]
-boltzmann
-
 [nas]
 earthdiver
 
 [kvm-hosts]
-leviathian
+earthdiver
 
 [baremetal:children]
-router
 nas
 kvm-hosts
 

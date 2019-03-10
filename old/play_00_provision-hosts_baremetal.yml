@@ -10,9 +10,8 @@
   roles:
     - common
     - security
-#TODO make work with router stuck on ubuntu 16
-#    - users
-#    - baremetal
+    - users
+    - baremetal
 
 - name: NAS hosts roles.
   hosts: nas

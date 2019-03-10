@@ -29,14 +29,16 @@ Once your able to log into the baremetal go ahead and set up some basic remote a
 sudo apt-add-repository universe && \
 sudo apt update && \
 passwd && \
-sudo apt --yes install openssh-server && \
-sudo -i 
+sudo apt --yes install openssh-server
 ```
 
 ## Initial Packages and Environment Variables
 Once logged in remotly we can install some needed packages.
-
+ssh in and
 ```
+sudo -i
+apt-add-repository universe && \
+apt update && \
 apt install --yes debootstrap gdisk zfs-initramfs
 ```
 
@@ -127,27 +129,21 @@ Make the Root Dataset
 zfs create -o canmount=noauto -o mountpoint=/ $POOL/ROOT/ubuntu && \
 zfs mount $POOL/ROOT/ubuntu && \
 zfs create -o setuid=off $POOL/home && \
-zfs create -o mountpoint=/root $POOL/home/root
-```
-
- 
-```
 zfs create -o mountpoint=/root $POOL/home/root && \
 zfs create -o canmount=off -o setuid=off -o exec=off $POOL/var && \
 zfs create -o com.sun:auto-snapshot=false $POOL/var/cache && \
 zfs create -o acltype=posixacl -o xattr=sa $POOL/var/log && \
 zfs create $POOL/var/spool && \
 zfs create -o com.sun:auto-snapshot=false -o exec=on $POOL/var/tmp && \
-zfs create \ 
--o com.sun:auto-snapshot=false \
--o mountpoint=/var/lib/nfs \
-$POOL/var/nfs
+zfs create -o com.sun:auto-snapshot=false -o mountpoint=/var/lib/nfs $POOL/var/nfs && \
+zfs create -o com.sun:auto-snapshot=false -o setuid=off $POOL/tmp && \
+chmod 1777 /mnt/tmp
 ```
 
 Install the minimal system:
 ```
-chmod 1777 /mnt/var/tmp
-debootstrap bionic /mnt
+chmod 1777 /mnt/var/tmp && \
+debootstrap bionic /mnt && \
 zfs set devices=off $POOL
 ```
 
@@ -167,12 +163,14 @@ Namework Interface
 Find the interface name:
 # ip addr show
 
-# vi /mnt/etc/netplan/NAME.yaml
+# vi /mnt/etc/netplan/01-netcfg.yaml
 network:
   version: 2
   ethernets:
-    NAME:
+    enp3s0:
       dhcp4: true
+    enp4s0:
+      dhcp4: true 
 ```
 
 Configure the package sources
@@ -212,8 +210,18 @@ apt install dosfstools
 Install GRUB for UEFI booting, system groups and set a root password.
 ```
 mkdosfs -F 32 -n EFI /dev/disk/by-id/$DISK1-part3 && \
+mkdosfs -F 32 -n EFI /dev/disk/by-id/$DISK2-part3 && \
+mkdosfs -F 32 -n EFI /dev/disk/by-id/$DISK3-part3 && \
+mkdosfs -F 32 -n EFI /dev/disk/by-id/$DISK4-part3 && \
+mkdosfs -F 32 -n EFI /dev/disk/by-id/$DISK5-part3 && \
+mkdosfs -F 32 -n EFI /dev/disk/by-id/$SLOG_DISK1-part3 && \
 mkdir /boot/efi && \
 echo PARTUUID=$(blkid -s PARTUUID -o value /dev/disk/by-id/$DISK1-part3) /boot/efi vfat nofail,x-systemd.device-timeout=1 0 1 >> /etc/fstab mount /boot/efi
+echo PARTUUID=$(blkid -s PARTUUID -o value /dev/disk/by-id/$DISK2-part3) /boot/efi vfat nofail,x-systemd.device-timeout=1 0 1 >> /etc/fstab mount /boot/efi
+echo PARTUUID=$(blkid -s PARTUUID -o value /dev/disk/by-id/$DISK3-part3) /boot/efi vfat nofail,x-systemd.device-timeout=1 0 1 >> /etc/fstab mount /boot/efi
+echo PARTUUID=$(blkid -s PARTUUID -o value /dev/disk/by-id/$DISK4-part3) /boot/efi vfat nofail,x-systemd.device-timeout=1 0 1 >> /etc/fstab mount /boot/efi
+echo PARTUUID=$(blkid -s PARTUUID -o value /dev/disk/by-id/$DISK5-part3) /boot/efi vfat nofail,x-systemd.device-timeout=1 0 1 >> /etc/fstab mount /boot/efi
+echo PARTUUID=$(blkid -s PARTUUID -o value /dev/disk/by-id/$SLOG_DISK1-part3) /boot/efi vfat nofail,x-systemd.device-timeout=1 0 1 >> /etc/fstab mount /boot/efi
 apt install --yes grub-efi-amd64 && \
 passwd
 ```
@@ -221,11 +229,11 @@ passwd
 Fix filesystem mount ordering
 
 ```
-# zfs set mountpoint=legacy rpool/var/log
-# zfs set mountpoint=legacy rpool/var/tmp
-# cat >> /etc/fstab << EOF
-rpool/var/log /var/log zfs defaults 0 0
-rpool/var/tmp /var/tmp zfs defaults 0 0
+zfs set mountpoint=legacy $POOL/var/log
+zfs set mountpoint=legacy $POOL/var/tmp
+cat >> /etc/fstab << EOF
+ocean/var/log /var/log zfs defaults 0 0
+ocean/var/tmp /var/tmp zfs defaults 0 0
 EOF
 
 ```
@@ -244,7 +252,7 @@ Save and quit.
 ```
 update-grub
 
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ubuntu --recheck --no-floppy && \
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ocean --recheck --no-floppy
 
 
 ```

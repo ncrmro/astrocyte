@@ -53,11 +53,11 @@ sudo chown -R ncrmro:ncrmro /ocean
 
 sudo zfs set \
 sharenfs="rw=@192.168.1.66/24,rw=@192.168.1.69/24" \
-raidp/ocean/iso
+ocean/isos
 
 sudo zfs set \
 sharenfs="rw=@192.168.1.66/24,rw=@192.168.1.69/24" \
-raidp/ocean/vm
+ocean/vms
 
 
 sudo zfs get sharenfs raidp/ocean/vm
@@ -118,22 +118,22 @@ sudo apt-get install -y samba
 
 sudo nano /etc/samba/smb.conf
 
-sudo zfs set sharesmb=off raidp/ocean/timemachine
+sudo zfs set sharesmb=off ocean/timemachine
 
 zfs create \
 -o mountpoint=/ocean/timemachine \
-raidp/ocean/timemachine
+ocean/timemachine
 
 
 zfs create \
 -o mountpoint=/ocean/guest \
-raidp/ocean/guest
+ocean/guest
 
 
-sudo zfs set sharesmb=on raidp/ocean/timemachine
+sudo zfs set sharesmb=on ocean/timemachine
+sudo zfs set sharesmb=on ocean/guest
 
 
-zfs set sharesmb=name=timemachine,on raidp/ocean/timemachine
 
 smbpasswd -a ncrmro
 
@@ -153,7 +153,7 @@ https://linuxconfig.org/how-to-configure-samba-server-share-on-ubuntu-18-04-bion
 
 Timemachine
 
-sudo tmutil setdestination /Volumes/cocean-timemachine
+sudo tmutil setdestination /Volumes/ocean_timemachine
 diskutil cs convert disk4s2 -stdinpassphrase '!&Ple699*'
 
 

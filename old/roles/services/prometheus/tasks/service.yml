@@ -22,13 +22,12 @@
     etc_hosts:
       # boltzmann.local: "{{ host_boltzmann_ip4 }}"
       earthdiver.local: "{{ host_earthdiver_ip4 }}"
-      leviathian.local: "{{ host_leviathian_ip4 }}"
 #      bastion.local: "{{ kvm_guest_bastion_ip4 }}"
 #      dnas.local: "{{ kvm_guest_dnas_ip4 }}"
       dnode0.local: "{{ kvm_guest_dnode0_ip4 }}"
-      unifi.local: "{{ kvm_guest_unifi_ip4 }}"
-      lemnos.local: "{{ kvm_guest_lemnos_ip4 }}"
-      gitlab-runners.local: "{{ kvm_guest_gitlab_runners_ip4 }}"
+#      unifi.local: "{{ kvm_guest_unifi_ip4 }}"
+#      lemnos.local: "{{ kvm_guest_lemnos_ip4 }}"
+#      gitlab-runners.local: "{{ kvm_guest_gitlab_runners_ip4 }}"
     volumes:
       - prometheus_config:/etc/prometheus/
       - prometheus_data:/data

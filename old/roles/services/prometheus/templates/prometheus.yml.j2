@@ -30,9 +30,9 @@ scrape_configs:
     static_configs:
       - targets: ['traefik:8080']
 
-  - job_name: 'leviathian node exporter'
-    static_configs:
-      - targets: ['leviathian.local:9100']
+#  - job_name: 'leviathian node exporter'
+#    static_configs:
+#      - targets: ['leviathian.local:9100']
 
   - job_name: 'earthdiver node exporter'
     static_configs:
@@ -46,17 +46,17 @@ scrape_configs:
     static_configs:
       - targets: ['dnode0.local:9100']
 
-  - job_name: 'gitlab-runners node exporter'
-    static_configs:
-      - targets: ['gitlab-runners.local:9100']
+#  - job_name: 'gitlab-runners node exporter'
+#    static_configs:
+#      - targets: ['gitlab-runners.local:9100']
 
-  - job_name: 'lemnos node exporter'
-    static_configs:
-      - targets: ['lemnos.local:9100']
+#  - job_name: 'lemnos node exporter'
+#    static_configs:
+#      - targets: ['lemnos.local:9100']
 
-  - job_name: 'unifi node exporter'
-    static_configs:
-      - targets: ['unifi.local:9100']
+#  - job_name: 'unifi node exporter'
+#    static_configs:
+#      - targets: ['unifi.local:9100']
 
 #  - job_name: 'Boltzmann node exporter'
 #    static_configs:
