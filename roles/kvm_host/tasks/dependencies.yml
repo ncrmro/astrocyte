@@ -1,24 +1,30 @@
 ---
 - name: Creates VM directory
   file:
-    path: "{{vm_location}}"
+    path: "{{kvm_vm_location}}"
     state: directory
     owner: libvirt-qemu
     group: libvirt-qemu
     recurse: true
 
+- name: Packages needed by ansible
+  apt: name={{ packages }} state=present
+  vars:
+    packages:
+         - pkg-config
+         - python-pip
+         - python3-lxml
+
 - name: Install kvm and tools
-  apt: name={{item}} state=present
-  with_items:
-       - qemu-kvm
-       - libvirt-bin
-       - libvirt-dev
-       - virtinst
-       - libguestfs-tools
-       # Packages needed by ansible
-       - pkg-config
-       - python3-pip
-       - python3-lxml
+  apt: name={{ packages }} state=present
+  vars:
+    packages:
+         - qemu-kvm
+         - libvirt-bin
+         - libvirt-dev
+         - virtinst
+         - libguestfs-tools
+
 
 - name: start libvirtd
   service: name=libvirtd state=started enabled=yes

@@ -189,7 +189,7 @@ d-i finish-install/reboot_in_progress note
 
 d-i preseed/late_command string \
 in-target mkdir /home/{{ admin_username }}/.ssh; \
-in-target /bin/sh -c "echo '{{ ssh_public_key }}' >> /home/{{ admin_username }}/.ssh/authorized_keys"; \
+in-target /bin/sh -c "echo '{{ admin_ssh_key }}' >> /home/{{ admin_username }}/.ssh/authorized_keys"; \
 in-target /bin/sh -c "echo '{{ admin_username }} ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers"; \
 in-target chown -R {{ admin_username }}:{{ admin_username }} /home/{{ admin_username }}/.ssh; \
 in-target chown -R {{ admin_username }}:{{ admin_username }} /home/{{ admin_username }}/.ssh/authorized_keys; \

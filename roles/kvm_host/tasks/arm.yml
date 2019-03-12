@@ -1,17 +1,18 @@
 - name: Install arm64 QEMUI packages
-  apt: name={{item}} state=present
-  with_items:
-       - qemu-system-arm
-       - qemu-efi
+  apt: name={{ packages }} state=present
+  vars:
+    packages:
+         - qemu-system-arm
+         - qemu-efi
 
 - name: Check if ARM Flash Image Exists
   stat:
-    path: "{{vm_location}}/arm_flash0.img"
+    path: "{{kvm_vm_location}}/arm_flash0.img"
   register: arm_image_efi_flash
 
 - name: Create ARM flash efi volume if does not exist.
   stat:
-    path: "{{vm_location}}/arm_flash0.img"
+    path: "{{kvm_vm_location}}/arm_flash0.img"
   when: arm_image_efi_flash.stat.exists != true
 
 - name: Check if ARM Variables Image Exists
@@ -21,7 +22,7 @@
 
 - name: Create ARM flash variables volume if does not exist.
   stat:
-    path: "dd if=/usr/share/qemu-efi/QEMU_EFI.fd of={{vm_location}}/arm_flash0.img conv=notrunc"
+    path: "dd if=/usr/share/qemu-efi/QEMU_EFI.fd of={{kvm_vm_location}}/arm_flash0.img conv=notrunc"
   when: arm_image_variable.stat.exists != true
 
 

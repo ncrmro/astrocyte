@@ -1,0 +1,22 @@
+---
+kvm_vm_location: "/vms"
+ubuntu18_iso: "/isos/ubuntu-18.04-live-server-amd64.iso"
+
+search_domans: ".local"
+
+kvm_base_guests_ubuntu18_04_server:
+    name: ubuntu18_04_server
+    memory: 8192
+    vcpus: 4,maxvcpus=4,sockets=1,cores=4,threads=1
+    os_type: linux
+    os_variant: ubuntu16.04
+    disk_size: 80G
+    file_type: qcow2
+    iso: http://us.archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/
+    hostname: ubuntu18-04-server
+    domain: ubuntu18-04-server.local
+    initrd_inject: "--initrd-inject {{kvm_vm_location}}/preseed.cfg"
+    extra_args: '--extra-args="console-setup/ask_detect=false file=file:/preseed.cfg priority=critical quiet"'
+
+kvm_base_guests:
+  - "{{kvm_base_guests_ubuntu18_04_server}}"

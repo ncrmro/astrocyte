@@ -1,6 +1,5 @@
 ---
-data_location: "/data"
-vm_location: "{{data_location}}/VMs"
+kvm_vm_location: "/vms"
 libvirt_qemu_resolv_conf_head: '/etc/systemd/resolved.conf'
 
 libvirt_bridges:

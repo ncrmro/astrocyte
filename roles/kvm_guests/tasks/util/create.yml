@@ -1,15 +1,15 @@
 ---
-- name: "create disk: {{ vm_location}}/{{ guest.name }}.{{ guest.file_type }}"
+- name: "create disk: {{ kvm_vm_location}}/{{ guest.name }}.{{ guest.file_type }}"
   command: >
            qemu-img create
            -f {{ guest.file_type }}
-           "{{ vm_location}}/{{ guest.name }}.{{ guest.file_type }}"
+           "{{ kvm_vm_location}}/{{ guest.name }}.{{ guest.file_type }}"
            "{{guest.disk_size}}"
 
 - name: "Copy preseed preseed-ubuntu.cfg.j2"
   template:
     src: preseed-ubuntu.cfg.j2
-    dest: "{{data_location}}/preseed.cfg"
+    dest: "{{kvm_vm_location}}/preseed.cfg"
     owner: root
     group: root
     mode: 0600
@@ -25,7 +25,7 @@
             --ram={{ guest.memory }}
             --vcpus={{ guest.vcpus }}
             --cpu={{ guest.cpu | default("host") }}
-            --disk={{ vm_location }}/{{ guest.name }}.{{ guest.file_type }}
+            --disk={{ kvm_vm_location }}/{{ guest.name }}.{{ guest.file_type }}
             --graphics vnc
             --os-type={{ guest.os_type }}
             --os-variant={{ guest.os_variant }}

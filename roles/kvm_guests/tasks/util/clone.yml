@@ -4,7 +4,7 @@
             virt-clone
             --original {{ guest.base_guest.name }}
             --name {{ guest.name }}
-            --file {{ vm_location }}/{{ guest.name }}.{{ guest.file_type | default("qcow2") }}
+            --file {{ kvm_vm_location }}/{{ guest.name }}.{{ guest.file_type | default("qcow2") }}
 
 - name: "set vm {{ guest.name }} to autostart"
   command: virsh autostart {{ guest.name }}

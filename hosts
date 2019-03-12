@@ -1,1 +1,5 @@
+[local]
+ncrmro-desktop ansible_host=127.0.0.1 ansible_python_interpreter=.venv/bin/python
+
+[kvm-hosts]
 ocean
