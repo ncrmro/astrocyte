@@ -8,8 +8,8 @@
     guest: "{{ item }}"
   with_items: "{{ kvm_base_guests }}"
 
-#- name: Create guests
-#  include_tasks: guests.yml
-#  vars:
-#    guest: "{{ item }}"
-#  with_items: "{{ kvm_guests }}"
+- name: Create guests
+  include_tasks: guests.yml
+  vars:
+    guest: "{{ item }}"
+  with_items: "{{ kvm_guests }}"
