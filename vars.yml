@@ -7,4 +7,20 @@ admin_password: !vault |
     33663261376439666339616438373561323130376166346538333231623937393834353632333439
     6564363064613233380a306266346562346233306461333763303562383333626265396162633330
     3230
-admin_ssh_key: ~/.ssh/id_ed25519
+admin_ssh_key_path: ~/.ssh/id_ed25519
+admin_ssh_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub' ) }}"
+
+kvm_guests:
+  - name: plex
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    hostname: plex
+    domain: plex.local
+    network_interface: br0
+#  - name: unifi
+#    mem: 2048
+#    cpus: 4
+#    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+#    file_type: qcow2
+#    hostname: unifi
+#    domain: unifi.local
+#    network_interface: br0

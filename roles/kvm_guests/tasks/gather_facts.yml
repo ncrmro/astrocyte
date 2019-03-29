@@ -16,7 +16,7 @@
       - kvm_base_guests
     ansible_ssh_host: "{{ item.domain }}"
     ansible_user: "{{admin_username}}"
-    ansible_ssh_private_key_file: "{{admin_ssh_key}}"
+    ansible_ssh_private_key_file: "{{admin_ssh_key_path}}"
     ansible_python_interpreter: /usr/bin/python3
     #ansible_ssh_port: "{{ new_port }}"
   with_items: "{{ kvm_base_guests }}"

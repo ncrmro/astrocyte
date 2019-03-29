@@ -15,5 +15,5 @@
             - libvirt-qemu
           generate_ssh_key: true
   roles:
-    #- kvm_host
+    - kvm_host
     - kvm_guests
