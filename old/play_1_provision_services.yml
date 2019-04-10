@@ -7,7 +7,7 @@
 #    - vars/env.yml
 #    - vars/users.yml
 #    - vars/vault/main.yml
-#  roles:
+#  roles_old:
 #    - services/pxe
 
 - name: Set up dnode0 play
@@ -39,5 +39,5 @@
 #  vars:
 #    common_node_exporter: true
 #    common_sidecar: true
-#  roles:
+#  roles_old:
 #    - common

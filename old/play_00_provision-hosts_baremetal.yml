@@ -1,5 +1,5 @@
 ---
-- name: Update hosts add in security roles.
+- name: Update hosts add in security roles_old.
   hosts: baremetal
   become_user: root
   remote_user: ncrmro
@@ -13,7 +13,7 @@
     - users
     - baremetal
 
-- name: NAS hosts roles.
+- name: NAS hosts roles_old.
   hosts: nas
   become_user: root
   remote_user: ncrmro
