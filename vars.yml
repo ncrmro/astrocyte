@@ -11,16 +11,13 @@ admin_ssh_key_path: ~/.ssh/id_ed25519
 admin_ssh_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub' ) }}"
 
 kvm_guests:
-  - name: plex
+  #  - name: plex
+  #    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+  #    hostname: plex
+  #    domain: plex.local
+  #    network_interface: br0
+  - name: k8-master
     base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
-    hostname: plex
-    domain: plex.local
+    hostname: k8-master
+    domain: k8-master.local
     network_interface: br0
-#  - name: unifi
-#    mem: 2048
-#    cpus: 4
-#    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
-#    file_type: qcow2
-#    hostname: unifi
-#    domain: unifi.local
-#    network_interface: br0

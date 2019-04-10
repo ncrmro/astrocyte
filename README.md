@@ -10,6 +10,9 @@ Activate the virtualenv
 Install project dependencies
 `pipenv install`
 
+ansible-galaxy install ncrmro.kvm_host --force
+
+
 ### Ansible Vault
 Create a password file
 
