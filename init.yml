@@ -2,7 +2,7 @@
   hosts: kvm-hosts
   become: true
   vars_files:
-    - vars.yml
+    - vars/main.yml
   vars:
     - users:
         - name: ncrmro
