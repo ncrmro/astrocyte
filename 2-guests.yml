@@ -1,8 +1,17 @@
-- name: Snapshot VM Guests.
-  hosts: ocean
+#- name: Snapshot VM Guests.
+#  hosts: ocean
+#  become: true
+#  vars_files:
+#    - vars/main.yml
+#    - vars/guests.yml
+#  tasks:
+#    - include: roles/galaxy/ncrmro.kvm_host/tasks/kvm-guest/guests_snapshot.yml
+
+- name: Running common k8 node tasks...
+  hosts: k8-nodes
   become: true
   vars_files:
     - vars/main.yml
     - vars/guests.yml
-  tasks:
-    - include: roles/galaxy/ncrmro.kvm_host/tasks/kvm-guest/guests_snapshot.yml
+  roles:
+    - common

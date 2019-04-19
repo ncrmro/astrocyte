@@ -1,5 +1,6 @@
 [all]
 ocean
+unifi
 k8node0 ansible_user=ncrmro ansible_host=k8node0.local
 k8node1 ansible_user=ncrmro ansible_host=k8node1.local
 k8node2 ansible_user=ncrmro ansible_host=k8node2.local
@@ -8,6 +9,12 @@ k8node2 ansible_user=ncrmro ansible_host=k8node2.local
 ocean
 
 [kvm-guests]
+unifi
+k8node0
+k8node1
+k8node2
+
+[k8-nodes]
 k8node0
 k8node1
 k8node2

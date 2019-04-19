@@ -1,0 +1,3 @@
+- name: Allow everything and enable UFW
+  ufw:
+    state: disabled
