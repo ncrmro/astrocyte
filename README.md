@@ -1,22 +1,17 @@
-## Setup local machine
-`brew install python pipenv`
+# Install project dependencies
 
-Create the virtualenv
-`virtualenv .venv`
+```bash
+pipenv install
+```
 
-Activate the virtualenv
-`source ~/.venvbin/activate`
-
-Install project dependencies
-`pipenv install`
-
-ansible-galaxy install ncrmro.kvm_host --force
-
+```bash
+ansible-galaxy install ncrmro.kvm_host --force --roles-path=roles/galaxy
+```
 
 ### Ansible Vault
 Create a password file
 
-```
+```bash
 mkdir ~/.ansible ; \
 echo "mypassword" >> ~/.ansible/.vault_pass.txt && \
 chmod 0444 ~/.ansible/.vault_pass.txt
@@ -31,10 +26,3 @@ ansible -i hosts -m shell -a 'uptime' all
 ### Maitnence
 
 ansible-playbook -i hosts init.yml
-ansible-playbook -i hosts nas.yml --limit @nas.retry
-
-
-sudo zfs send -i rpool/ROOT/ubuntu@install rpool/ROOT/ubuntu@2019-03-06_H20 | sudo zfs recv ocean/backup/ROOT/ubuntu
-
-ansible-playbook -i hosts init.yml --vault-password-file ~/.ansible/.vault_pass.txt
-
