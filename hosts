@@ -1,13 +1,13 @@
 [all]
 ocean
-node0 ansible_user=ncrmro ansible_host=node0.local
-node1 ansible_user=ncrmro ansible_host=node1.local
-node2 ansible_user=ncrmro ansible_host=node2.local
+k8node0 ansible_user=ncrmro ansible_host=k8node0.local
+k8node1 ansible_user=ncrmro ansible_host=k8node1.local
+k8node2 ansible_user=ncrmro ansible_host=k8node2.local
 
 [kvm-hosts]
 ocean
 
 [kvm-guests]
-node0
-node1
-node3
+k8node0
+k8node1
+k8node2
