@@ -1,5 +1,13 @@
-[local]
-ncrmro-desktop ansible_host=127.0.0.1 ansible_python_interpreter=.venv/bin/python
+[all]
+ocean
+node0 ansible_user=ncrmro ansible_host=node0.local
+node1 ansible_user=ncrmro ansible_host=node1.local
+node2 ansible_user=ncrmro ansible_host=node2.local
 
 [kvm-hosts]
 ocean
+
+[kvm-guests]
+node0
+node1
+node3
