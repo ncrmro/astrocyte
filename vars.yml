@@ -10,14 +10,32 @@ admin_password: !vault |
 admin_ssh_key_path: ~/.ssh/id_ed25519
 admin_ssh_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub' ) }}"
 
-kvm_guests:
-  #  - name: plex
-  #    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
-  #    hostname: plex
-  #    domain: plex.local
-  #    network_interface: br0
-  - name: k8-master
+guests:
+  - name: unifi
     base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
-    hostname: k8-master
-    domain: k8-master.local
+    hostname: unifi
+    domain: unifi.local
     network_interface: br0
+
+guests_k8:
+  - name: k8node0
+    memory: 3072
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    hostname: k8node0
+    domain: k8node0.local
+    network_interface: br0
+  - name: k8node1
+    memory: 3072
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    hostname: k8node1
+    domain: k8node1.local
+    network_interface: br0
+  - name: k8node2
+    memory: 3072
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    hostname: k8node2
+    domain: k8node2.local
+    network_interface: br0
+
+
+kvm_guests: "{{ guests + guests_k8 }}"
