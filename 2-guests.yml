@@ -1,0 +1,8 @@
+- name: Setup KVM guests.
+  hosts: kvm-guests
+  become: true
+  vars_files:
+    - vars/vars.yml
+  vars:
+  roles:
+    - common
