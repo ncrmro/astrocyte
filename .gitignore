@@ -75,3 +75,5 @@ Temporary Items
 *.retry
 
 !/roles_old/services/prometheus/
+
+galaxy

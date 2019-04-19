@@ -1,0 +1,49 @@
+---
+kvm_vm_folder_path: "/vms"
+search_domans: ".local"
+
+ubuntu18_iso: "/isos/ubuntu-18.04-live-server-amd64.iso"
+
+kvm_base_guests_ubuntu18_04_server:
+  name: ubuntu18_04_server
+  memory: 8192
+  vcpus: 4,maxvcpus=4,sockets=1,cores=4,threads=1
+  os_type: linux
+  os_variant: ubuntu16.04
+  disk_size: 80G
+  file_type: qcow2
+  iso: http://us.archive.ubuntu.com/ubuntu/dists/bionic/main/installer-amd64/
+  hostname: ubuntu18-04-server
+  domain: ubuntu18-04-server.local
+  initrd_inject: "--initrd-inject {{ kvm_vm_folder_path }}/preseed.cfg"
+  extra_args: '--extra-args="console-setup/ask_detect=false file=file:/preseed.cfg priority=critical quiet"'
+
+guests:
+  - name: unifi
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    hostname: unifi
+    domain: unifi.local
+    network_interface: br0
+
+guests_k8:
+  - name: k8node0
+    memory: 3072
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    hostname: k8node0
+    domain: k8node0.local
+    network_interface: br0
+  - name: k8node1
+    memory: 3072
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    hostname: k8node1
+    domain: k8node1.local
+    network_interface: br0
+  - name: k8node2
+    memory: 3072
+    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    hostname: k8node2
+    domain: k8node2.local
+    network_interface: br0
+
+
+kvm_guests: "{{ guests + guests_k8 }}"

@@ -1,8 +1,8 @@
-- name: Setup KVM guests.
-  hosts: kvm-guests
+- name: Snapshot VM Guests.
+  hosts: ocean
   become: true
   vars_files:
-    - vars/vars.yml
-  vars:
-  roles:
-    - common
+    - vars/main.yml
+    - vars/guests.yml
+  tasks:
+    - include: roles/galaxy/ncrmro.kvm_host/tasks/kvm-guest/guests_snapshot.yml
