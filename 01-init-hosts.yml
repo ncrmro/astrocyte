@@ -1,5 +1,5 @@
-- name: Setup KVM hosts.
-  hosts: kvm-hosts
+- name: Setup KVM hosts.ini.
+  hosts: kvm-hosts.ini
   become: true
   vars_files:
     - vars/main.yml

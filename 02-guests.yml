@@ -1,0 +1,8 @@
+- name: Running common k8 node tasks...
+  hosts: k8-nodes
+  become: true
+  vars_files:
+    - vars/main.yml
+    - vars/guests.yml
+  roles:
+    - common
