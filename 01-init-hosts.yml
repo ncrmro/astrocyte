@@ -1,8 +1,9 @@
 - name: Setup KVM hosts.ini.
-  hosts: kvm-hosts.ini
+  hosts: kvm-hosts
   become: true
   vars_files:
     - vars/main.yml
+    - vars/guests.yml
   vars:
     - users:
         - name: ncrmro
@@ -15,4 +16,4 @@
             - libvirt-qemu
           generate_ssh_key: true
   roles:
-    - role: ncrmro.kvm_host
+    - role: roles/galaxy/ncrmro.kvm_host

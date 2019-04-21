@@ -1,0 +1,8 @@
+- name: Setting up PiHole
+  hosts: pihole
+  become: true
+  vars_files:
+    - vars/main.yml
+    - vars/guests.yml
+  roles:
+    - common
