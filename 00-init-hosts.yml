@@ -1,4 +1,4 @@
-- name: Setup KVM hosts.ini.
+- name: Setup KVM hosts.
   hosts: kvm-hosts
   become: true
   vars_files:
