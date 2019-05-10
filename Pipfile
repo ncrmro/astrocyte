@@ -7,6 +7,7 @@ name = "pypi"
 ansible = "*"
 boto = "*"
 "boto3" = "*"
+lxml = "*"
 
 [dev-packages]
 
