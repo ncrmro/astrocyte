@@ -16,4 +16,4 @@
             - libvirt-qemu
           generate_ssh_key: true
   roles:
-    - role: roles/galaxy/ncrmro.kvm_host
+    - role: /Users/ncrmro/code/ansible-galaxy/kvm-host
