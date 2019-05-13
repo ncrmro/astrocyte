@@ -1,0 +1,12 @@
+- name: Setup KVM hosts.
+  hosts: levi
+  become: true
+  vars_files:
+    - vars/main.yml
+    - vars/guests.yml
+#  roles:
+#    - role: /Users/ncrmro/code/ansible-galaxy/kvm-host
+  tasks:
+    - debug:
+        msg: test
+
