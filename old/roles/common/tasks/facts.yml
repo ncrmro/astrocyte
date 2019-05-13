@@ -1,3 +1,0 @@
-- set_fact:
-     cpu_architechture:
-     when: "'ubuntu_arm7' not in group_names"

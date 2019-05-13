@@ -1,7 +1,0 @@
----
-grafana_admin_username: grafana
-grafana_admin_password: secret
-
-grafana_postgres_db_name: grafana
-grafana_postgres_user_username: grafana
-grafana_postgres_user_password: grafana

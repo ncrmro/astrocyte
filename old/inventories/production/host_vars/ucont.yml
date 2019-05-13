@@ -1,9 +1,0 @@
-guest:
-  name: ucont
-  mem: 512
-  cpus: 4
-  base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
-  disk_size: 60G
-  file_type: qcow2
-  hostname: ucont
-  domain: ucont.local

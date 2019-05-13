@@ -1,2 +1,0 @@
-- import_tasks: service.yml
-- import_tasks: prometheus_exporter.yml

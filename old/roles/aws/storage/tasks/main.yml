@@ -1,2 +1,0 @@
-- include_tasks: ebs.yml
-  with_items: "{{ aws_ebs_volumes }}"
