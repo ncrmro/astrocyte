@@ -1,19 +1,14 @@
 - name: Setup KVM hosts.
-  hosts: kvm-hosts
+  hosts: levi
   become: true
   vars_files:
     - vars/main.yml
     - vars/guests.yml
-  vars:
-    - users:
-        - name: ncrmro
-          uid: 1000
-          email_perfered: ncrmro@gmail.com
-          update_password: on_create
-          groups:
-            - sudo
-            - libvirt
-            - libvirt-qemu
-          generate_ssh_key: true
   roles:
     - role: /Users/ncrmro/code/ansible-galaxy/kvm-host
+#  tasks:
+##    - task: /Users/ncrmro/code/gitlab.com/jtco/ops/astrocyte/roles/gcp-jh/tasks/main.yml
+#    - name: Run tasks/other.yaml instead of 'main'
+#      include_role:
+#        name: gcp-jh
+#        tasks_from: init
