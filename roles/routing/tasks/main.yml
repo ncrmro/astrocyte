@@ -1,9 +1,0 @@
-- include_tasks: cloudflare.yml
-  with_items: '{{ dns_routes | selectattr("provider", "equalto", cf) | list }}'
-  loop_control:
-    loop_var: cf_zone
-
-#- include_tasks: roles/aws/route53/tasks/main.yml
-#  with_items: '{{ dns_routes | selectattr("provider", "equalto", "aws") | list }}'
-#  loop_control:
-#    loop_var: r53_route

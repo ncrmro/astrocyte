@@ -1,0 +1,8 @@
+- name: Snapshot VM Guests.
+  hosts: ocean
+  become: true
+  vars_files:
+    - vars/main.yml
+    - vars/guests.yml
+  tasks:
+    - include: roles/galaxy/ncrmro.kvm_host/tasks/kvm-guest/guests_snapshot.yml

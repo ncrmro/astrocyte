@@ -1,0 +1,3 @@
+k8_config_path: /etc/kubernetes
+k8_certs_path: /etc/kubernetes/pki/
+k8_user_certs_path: /home/ubuntu/certs/
