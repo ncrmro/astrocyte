@@ -1,0 +1,29 @@
+#- name: Install packages to allow apt to use a repository over HTTPS
+#  apt: name={{item}} state=present
+#  with_items:
+#       - mongoql-client
+
+- name: Create mongo networks
+  docker_network:
+    name: mongo
+
+- name: Start mongo container.
+  docker_container:
+    name: mongo
+    image: "{{ docker_mongo_image | default('mongo:latest') }}"
+    #command: mongod --auth
+    state: started
+    restart_policy: always
+    networks:
+      - name: mongo
+    volumes:
+      - mongo_data:/data/db
+    env:
+      MONGO_INITDB_ROOT_USERNAME: "{{ mongo_admin_username }}"
+      MONGO_INITDB_ROOT_PASSWORD: "{{ mongo_admin_password }}"
+    ports:
+      - '27017:27017'
+
+- name: Install pymongo
+  pip:
+    name: pymongo

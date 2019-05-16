@@ -1,0 +1,45 @@
+- name: Start prometheus container.
+  docker_container:
+    name: prometheus
+    image: "{{ docker_prometheus_image | default('prom/prometheus') }}"
+    hostname: prometheus.jtronics.co
+    state: started
+    recreate: true
+    user: 0
+    restart_policy: always
+    published_ports:
+      - '127.0.0.1:9090:9090'
+    command: >
+      --config.file=/etc/prometheus/prometheus.yml
+      --storage.tsdb.path=/data
+      --storage.tsdb.retention=10y
+    networks:
+#      - name: bridge
+#        ipv4_address: 172.17.0.8
+      - name: traefik
+      - name: postgres
+      - name: prometheus
+    etc_hosts:
+      # boltzmann.local: "{{ host_boltzmann_ip4 }}"
+      earthdiver.local: "{{ host_earthdiver_ip4 }}"
+#      bastion.local: "{{ kvm_guest_bastion_ip4 }}"
+#      dnas.local: "{{ kvm_guest_dnas_ip4 }}"
+      dnode0.local: "{{ kvm_guest_dnode0_ip4 }}"
+#      unifi.local: "{{ kvm_guest_unifi_ip4 }}"
+#      lemnos.local: "{{ kvm_guest_lemnos_ip4 }}"
+#      gitlab-runners.local: "{{ kvm_guest_gitlab_runners_ip4 }}"
+    volumes:
+      - prometheus_config:/etc/prometheus/
+      - prometheus_data:/data
+    labels:
+     traefik.enable: "true"
+     traefik.frontend.rule: "Host:prometheus.jtronics.co"
+     traefik.port: "9090"
+     traefik.docker.network: traefik
+
+- name: Allow prometheus to access docker host from internal ip address
+  ufw:
+    rule: allow
+    port: 9100
+    src: 172.17.0.0/16
+  when: common_node_exporter_ip is defined

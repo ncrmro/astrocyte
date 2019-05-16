@@ -1,0 +1,139 @@
+#- name: Ensure group "somegroup" exists
+#  group:
+#    name: somegroup
+#    state: present
+#
+#
+#- name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+#  user:
+#    name: "{{ item.username }}"
+#    group: admin
+
+- set_fact:
+    k8_config_path: /etc/kubernetes
+    k8_certs_path: /etc/kubernetes/pki/
+    k8_user_certs_path: /home/ubuntu/certs/
+
+- set_fact:
+    k8_ca_private_key: "{{k8_certs_path}}ca.key"
+    k8_ca_certificate: "{{k8_certs_path}}ca.crt"
+    k8_user_private_key: "{{k8_user_certs_path + item.username }}.key"
+    k8_user_certificate: "{{k8_user_certs_path + item.username  }}.crt"
+    k8_user_csr: "{{k8_user_certs_path + item.username  }}.csr"
+
+- name: Creates directory
+  file:
+    path: "{{k8_user_certs_path}}"
+    state: directory
+
+- openssl_privatekey:
+    path: "{{k8_user_private_key}}"
+
+# Generate an OpenSSL Certificate Signing Request
+- openssl_csr:
+    path: "{{k8_user_csr}}"
+    privatekey_path: "{{k8_user_private_key }}"
+    common_name: "{{ item.username }}"
+    organization_name: "{{ organization_name }}"
+
+- name: Read cert
+  shell: "cat {{k8_user_csr}}"
+  register: k8_user_csr_output
+
+#- name: Generate a Self Signed OpenSSL certificate
+#  openssl_certificate:
+#    path: "{{k8_user_certificate}}"
+#    privatekey_path: "{{k8_user_private_key }}"
+#    csr_path: "{{k8_user_csr}}"
+#    provider: selfsigned
+
+- name: Set user credentials
+  shell: >
+    openssl x509 -req
+    -in {{k8_user_csr}}
+    -CA {{k8_ca_certificate}}
+    -CAkey {{k8_ca_private_key}}
+    -CAcreateserial
+    -out {{k8_user_certificate}}
+    -days 500
+
+- name: Change ownership of certs
+  file: 
+    dest: "{{k8_user_certs_path}}"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0777
+    recurse: yes
+
+
+- name: Set user credentials
+  shell: >
+    kubectl create namespace {{ namespace }}
+  become: false
+
+- name: Set user credentials
+  shell: >
+    kubectl config set-credentials {{ item.username }}
+    --client-certificate={{k8_user_certificate}}
+    --client-key={{k8_user_private_key}}
+  become: false
+
+- name: Set context
+  shell: >
+    kubectl config set-context {{ item.username }}-context --cluster={{ cluster }} --namespace={{ namespace }} --user={{ item.username }}
+  become: false
+
+#- name: Add contex
+#  shell: kubectl --context={{ item.username }}-context get pods
+#  become: false
+
+- name: Copy role-deployment-manager.yaml
+  template:
+    src: role-deployment-manager.yml.j2
+    #dest: "{{ ansible_env.HOME }}/role-deployment-manager.yml"
+    dest: "/home/ubuntu/role-deployment-manager.yml"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+
+- name: kubectl create -f role-deployment-manager.yml
+  #shell: kubectl create -f "{{ansible_env.HOME}}/role-deployment-manager.yml"
+  shell: kubectl create -f /home/ubuntu/role-deployment-manager.yml
+  become: false
+
+- name: Copy rolebinding-deployment-manager.yml
+  template:
+    src: rolebinding-deployment-manager.yml.j2
+    #dest: "{{ ansible_env.HOME }}/role-deployment-manager.yml"
+    dest: "/home/ubuntu/rolebinding-deployment-manager.yml"
+    owner: ubuntu
+    group: ubuntu
+    mode: 0600
+
+- name: kubectl create -f rolebinding-deployment-manager.yml
+  #shell: kubectl create -f "{{ansible_env.HOME}}/role-deployment-manager.yml"
+  shell: kubectl create -f /home/ubuntu/rolebinding-deployment-manager.yml
+  become: false
+
+# kubectl config set-context ubuntu-context --user=ubuntu --namespace=office && kubectl config use-context ubuntu-context
+
+- name: Copy a "sudoers" file on the remote machine for editing
+  fetch:
+    src: "{{ k8_ca_certificate }}"
+    dest: "~/.kube/certs/ca.crt"
+    flat: true
+  become: false
+
+- name: Copy a "sudoers" file on the remote machine for editing
+  fetch:
+    src: "{{ k8_user_private_key }}"
+    dest: "~/.kube/certs/ubuntu.pem"
+    flat: true
+  become: false
+
+- name: Copy a "sudoers" file on the remote machine for editing
+  fetch:
+    src: "{{ k8_user_certificate}}"
+    dest: "~/.kube/certs/ubuntu.cert"
+    flat: true
+  become: false

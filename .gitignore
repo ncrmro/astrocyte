@@ -74,3 +74,6 @@ Temporary Items
 ### Ansible template
 *.retry
 
+!/roles_old/services/prometheus/
+
+galaxy

@@ -1,0 +1,6 @@
+docker_traefik_image: traefik
+docker_postfixadmin_image: hardware/postfixadmin:latest
+docker_mailserver_image: hardware/mailserver:1.1-latest
+docker_wordpress_image: wordpress:latest
+docker_redis_image: redis:alpine
+docker_mariadb_image: mariadb:10.3.2

@@ -1,2 +1,0 @@
-- name: Install openssl/ansible dependencies
-  include_tasks: openssl.yml

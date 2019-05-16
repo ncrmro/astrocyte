@@ -1,3 +1,0 @@
-- name: "create: {{ guest.name }}"
-  include_tasks: util/create.yml
-  when: item.name not in vms.list_vms
