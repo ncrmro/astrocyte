@@ -1,9 +1,0 @@
-
----
-- import_tasks: install.yml
-  tags:
-    - zfs
-
-- import_tasks: install_nfs.yml
-  tags:
-    - nfs

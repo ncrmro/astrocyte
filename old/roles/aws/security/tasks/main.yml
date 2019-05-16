@@ -1,2 +1,0 @@
-- include_tasks: security_groups.yml
-  with_items: "{{ aws_ec2_securty_groups }}"

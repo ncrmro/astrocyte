@@ -8,6 +8,7 @@ ansible = "*"
 boto = "*"
 "boto3" = "*"
 lxml = "*"
+google-auth = "*"
 
 [dev-packages]
 
