@@ -1,0 +1,16 @@
+---
+variables:
+  DOCKER_DRIVER: overlay2
+  CACHED_BASE_IMAGE: registry.gitlab.com/get-sweet/mezcal/cached/azul:latest-dev
+  SENTRY_RELEASE: $CI_PROJECT_NAME@$CI_COMMIT_SHA
+
+image: $CACHED_BASE_IMAGE
+
+stages:
+  - lint
+
+lint:
+  before_script:
+    - apk add git
+    - pipenv install --system --deploy --python /venv/bin/python --dev
+  script: "pre-commit run -a"
