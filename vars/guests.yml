@@ -20,22 +20,22 @@ kvm_base_guests_ubuntu18_04_server:
 
 guests:
   - name: unifi
-    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    base_guest: "{{ kvm_base_guests_ubuntu18_04_server }}"
     hostname: unifi
     domain: unifi.local
     network_interface: br0
   - name: ph
-    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    base_guest: "{{ kvm_base_guests_ubuntu18_04_server }}"
     hostname: ph
     domain: ph.local
     network_interface: br0
   - name: jumphost
-    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    base_guest: "{{ kvm_base_guests_ubuntu18_04_server }}"
     hostname: jumphost
     domain: jumphost.local
     network_interface: br0
   - name: wireguard
-    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    base_guest: "{{ kvm_base_guests_ubuntu18_04_server }}"
     hostname: wireguard
     domain: wireguard.local
     network_interface: br0
@@ -43,17 +43,17 @@ guests:
 guests_k8:
   - name: k8node-razdsf
     memory: 2048
-    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    base_guest: "{{ kvm_base_guests_ubuntu18_04_server }}"
     hostname: k8node_razdsf
     domain: k8node-razdsf.local
     network_interface: br0
   - name: k8node_apfvys
     memory: 2048
-    base_guest: "{{kvm_base_guests_ubuntu18_04_server}}"
+    base_guest: "{{ kvm_base_guests_ubuntu18_04_server }}"
     hostname: k8node_apfvys
     domain: k8node_apfvys.local
     network_interface: br0
 
 #kvm_guests: "{{ guests + guests_k8 }}"
-kvm_guests: "{{ guests}}"
+kvm_guests: "{{ guests }}"
 #kvm_guests: "{{ guests_k8 }}"

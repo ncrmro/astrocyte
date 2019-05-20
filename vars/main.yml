@@ -11,15 +11,15 @@ admin_ssh_key_path: ~/.ssh/id_ed25519
 admin_ssh_key: "{{ lookup('file', '~/.ssh/id_ed25519.pub' ) }}"
 
 users:
-    - name: ncrmro
-      uid: 1000
-      email_perfered: ncrmro@gmail.com
-      update_password: on_create
-      groups:
-        - sudo
-        - libvirt
-        - libvirt-qemu
-      generate_ssh_key: true
+  - name: ncrmro
+    uid: 1000
+    email_perfered: ncrmro@gmail.com
+    update_password: on_create
+    groups:
+      - sudo
+      - libvirt
+      - libvirt-qemu
+    generate_ssh_key: true
 
 gcp_project: test
 

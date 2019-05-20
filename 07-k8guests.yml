@@ -15,4 +15,3 @@
     - vars/guests.yml
   roles:
     - common
-

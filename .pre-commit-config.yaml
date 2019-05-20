@@ -1,9 +1,18 @@
 ---
 repos:
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.15.0
+    sha: v1.15.0
     hooks:
       - id: yamllint
+        args:
+          - >
+            -d {
+              extends: relaxed,
+              rules: {
+                line-length: { max: 120 }
+              }
+            }
+          - "-s"
   - repo: https://github.com/ansible/ansible-lint.git
     rev: v4.1.0a0
     hooks:

@@ -9,4 +9,3 @@
   tasks:
     - debug:
         msg: test
-
