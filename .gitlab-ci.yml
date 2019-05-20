@@ -10,6 +10,7 @@ stages:
   - lint
 
 lint:
+  stage: lint
   before_script:
     - apk add git
     - pipenv install --system --deploy --python /venv/bin/python --dev
