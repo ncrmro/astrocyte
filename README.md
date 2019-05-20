@@ -21,6 +21,7 @@ Then we can quickly spin up new pre configured guests for experimentation etc.
 An additional goal is to provide cloud provider agnostic Virtual Machines
 for things like off site backups, archives, kubernetes workers/ingress nodes.
 
+For instance all AWS servers should be secure and waiting for any domain specific ansible plays once astrocyte is done with them.
 
 # Install project dependencies
 
