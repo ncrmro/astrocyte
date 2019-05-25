@@ -16,6 +16,13 @@ then clone the base guest.
 
 Then we can quickly spin up new pre configured guests for experimentation etc.
 
+The main prequsite of Astrocyte is that you have a body of storage available. [Ocean]() is a project that utilizes ZFS
+to provide networked attached storage (NAS). This allows us to have as many hosts virtual or baremetal that can all 
+write to a single storage pool. 
+
+Furthermore Astrocyte provisions the baremetal hosts and their respective VM guests with various tools to aid in security
+and monitoring. 
+
 ---
 
 An additional goal is to provide cloud provider agnostic Virtual Machines
