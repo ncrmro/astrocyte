@@ -1,3 +1,10 @@
 - name: Allow everything and enable UFW
   ufw:
     state: disabled
+
+# TODO only enable on NFS consumes
+#- name: Install kvm and tools
+#  apt: name={{ packages }} state=present
+#  vars:
+#    packages:
+#      - nfs-common
