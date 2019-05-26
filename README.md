@@ -14,14 +14,23 @@ turn them into KVM hosts.
 Then provision any KVM base guests with admin credentials, snapshot and 
 then clone the base guest.
 
-Then we can quickly spin up new pre configured guests for experimentation etc.
+This allows us spin up new pre configured guests for experimentation etc.
 
-The main prequsite of Astrocyte is that you have a body of storage available. [Ocean]() is a project that utilizes ZFS
-to provide networked attached storage (NAS). This allows us to have as many hosts virtual or baremetal that can all 
-write to a single storage pool. 
+The main prequsite of Astrocyte is that you have a body of storage available. [Ocean](https://gitlab.com/jtco-io/ops/ocean)
+is a project that utilizes ZFS to provide networked attached storage (NAS). This allows us to have as many hosts virtual
+or baremetal that can all write to a single storage pool.
+
+All hosts should refer to this pool of data on a network file share. This means all virtual machine images are available
+to any astrocyte host. The iso directory can be allowed to be written for from a [Transmission](https://transmissionbt.com/)
+vm. Further work to get iSCI shares working are in order. 
+
+This separation of concerns means we use standard OS Ubuntu with a minimal package set. Data backups and integreity are
+handled by the Ocean hardware and repos respectivly. Althought Ocean does maintain the ability to have Astrocyte
+deployed to it.
 
 Furthermore Astrocyte provisions the baremetal hosts and their respective VM guests with various tools to aid in security
-and monitoring. 
+and monitoring. These typically include Prometheus [Node exporter](https://github.com/prometheus/node_exporter) and
+Graylog [Sidecar](https://docs.graylog.org/en/3.0/pages/sidecar.html).
 
 ---
 
@@ -55,6 +64,7 @@ ansible -i hosts -m ping all
 
 ansible -i hosts -m shell -a 'uptime' all
 
-### Maitnence
+### Maintenance
 
 ansible-playbook -i hosts init.yml
+k
