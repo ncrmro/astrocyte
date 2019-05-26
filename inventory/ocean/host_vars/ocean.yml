@@ -1,0 +1,13 @@
+astro_guests:
+  - name: unifi
+    base_guest: "{{ kvm_base_guests_ubuntu18_04_server }}"
+    hostname: unifi
+    domain: unifi.local
+    network_interface: br0
+  - name: ph
+    base_guest: "{{ kvm_base_guests_ubuntu18_04_server }}"
+    hostname: ph
+    domain: ph.local
+    network_interface: br0
+
+kvm_guests: "{{ astro_guests }}"
